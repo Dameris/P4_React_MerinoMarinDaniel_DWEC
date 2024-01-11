@@ -142,7 +142,16 @@ header {
 }
 
 /* Anime Details */
-/* .detailsDiv {} */
+/* .detailsDiv {
+    background-image: url("anime.images?.jpg?.large_image_url");
+} */
+
+.imgSynopsis {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
 
 /* .detailsP {
     white-space: pre-wrap;

@@ -5,7 +5,7 @@ import NotFound from "../pages/NotFound"
 import Contact from "../pages/Contact"
 import Login from "../pages/LogIn"
 import Singup from "../pages/SingUp"
-import AnimeDetails from "../pages/AnimeDetails"
+import AnimeDetails from "../components/AnimeDetails"
 
 export const router = createBrowserRouter(
   [
