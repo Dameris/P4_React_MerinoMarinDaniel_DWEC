@@ -28,12 +28,20 @@ const AnimeDetails = () => {
     const anime = animeResults.data
 
     return (
-        <div>
+        <div className="detailsDiv">
             <h1>{anime.title}</h1>
+            <h2>({anime.title_japanese})</h2>
             {anime.images?.jpg && (
                 <img src={anime.images.jpg.image_url} alt={anime.title} />
             )}
-            <p>{anime.synopsis}</p>
+            <p className="detailsP">
+                {anime.synopsis}
+                Type: {anime.type}
+                Source: {anime.source}
+                Episodes: {anime.episodes}
+                Status: {anime.status}
+                Aired from: {anime.aired.prop}
+            </p>
         </div>
     )
 }
