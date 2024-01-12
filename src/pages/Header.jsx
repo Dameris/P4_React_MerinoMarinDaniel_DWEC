@@ -5,7 +5,6 @@ import { NavLink, Link, useNavigate } from "react-router-dom"
 import { useUserContext } from "../context/UserContext"
 
 function header() {
-
     const { user, setUser, favs, setFavs, loged, setLoged } = useUserContext()
     const navigate = useNavigate()
 
@@ -22,14 +21,14 @@ function header() {
             <nav className="navHeader">
                 <ul className="btnsHeader">
                     <li><NavLink to="/">Home</NavLink></li>
-                    <li><NavLink to="/algo">Something</NavLink></li>
+                    <li><NavLink to="/favAnime">Favourites</NavLink></li>
                     <li><NavLink to="/contact">Contact</NavLink></li>
                 </ul>
             </nav>
             <ul className="iconsHeader">
                 {loged ? (
                     <ul className="btnsHeader">
-                        <li className="liLogged"><NavLink to="/favAnime">Favoritos</NavLink></li>
+                        <li className="liLogged"><NavLink to="/userProfile">Profile</NavLink></li>
                         <li onClick={cerrarSesion}>Logout</li>
                     </ul>
                 ) : (

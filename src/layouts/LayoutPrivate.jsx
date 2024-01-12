@@ -1,22 +1,25 @@
-import React, { useEffect } from 'react'
-import { Outlet, useNavigate } from 'react-router'
-import { useUserContext } from '../context/UserContext'
+import React, { useEffect } from "react"
+import { Outlet, useNavigate } from "react-router"
+import { useUserContext } from "../context/UserContext"
+import Header from "../pages/Header"
+import Footer from "../pages/Footer"
 
 export default function LayoutPrivate() {
 
-    const { user } = useUserContext()
+    const { loged } = useUserContext()
     const navigate = useNavigate()
 
     useEffect(() => {
-        if (!user) {
+        if (!loged) {
             navigate("/login")
         }
-    }, [user])
+    }, [loged])
 
     return (
         <div>
-            <div>LayoutPrivate</div>
+            <Header></Header>
             <Outlet></Outlet>
+            <Footer></Footer>
         </div>
     )
 }

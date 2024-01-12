@@ -1,65 +1,54 @@
-import React, { useState } from 'react';
-import { NavLink } from 'react-router-dom';
+import React, { useState } from "react"
+import { NavLink } from "react-router-dom"
+import { useUserContext } from "../context/UserContext"
 
 export default function LogIn() {
-  const [user, setUser] = useState({ username: '', password: '' });
-  const [error, setError] = useState('');
+  const [user, setUser] = useState({
+    email: "",
+    username: "",
+    password: "",
+    birthday: ""
+  })
+  const [error, setError] = useState("")
+  const { setLoged } = useUserContext()
 
+  // Manejar cambios en el formulario
   const handleChange = (e) => {
-    const { name, value } = e.target;
-    setUser({ ...user, [name]: value });
-  };
+    const { name, value } = e.target
+    setUser({ ...user, [name]: value })
+  }
 
+  // Manejar los datos enviados
   const handleSubmit = (e) => {
-    e.preventDefault();
-    const storedUser = JSON.parse(localStorage.getItem('user'));
-    if (storedUser && storedUser.username === user.username && storedUser.password === user.password) {
-      // Permitir que el usuario acceda a la aplicación
+    e.preventDefault()
+
+    const storedUsers = JSON.parse(localStorage.getItem("users")) || []
+    const userExists = storedUsers.some((existingUser) => existingUser.username === user.username)
+    const passwordExists = storedUsers.some((existingUser) => existingUser.password === user.password)
+
+    if (!userExists || !passwordExists) {
+      setError("Incorrect username or password")
     } else {
-      setError('Usuario o contraseña incorrectos');
+      setLoged(true)
     }
-  };
+  }
 
   return (
     <div>
-      <h2>Iniciar sesión</h2>
+      <h2>Log In</h2>
       <form onSubmit={handleSubmit}>
         <label>
-          Usuario:
+          User:
           <input type="text" name="username" value={user.username} onChange={handleChange} />
         </label>
         <label>
-          Contraseña:
+          Password:
           <input type="password" name="password" value={user.password} onChange={handleChange} />
         </label>
         {error && <p>{error}</p>}
-        <button type="submit">Iniciar sesión</button>
-        <NavLink to="/singup" className={"navLink"}>¿No tienes cuenta? ¡Regístrate!</NavLink>
+        <button type="submit">Log In</button>
+        <NavLink to="/singup" className="navLink">Don't have an account? Sing Up!</NavLink>
       </form>
     </div>
   )
 }
-
-// import React, { useState } from 'react';
-// import { useHistory } from 'react-router-dom';
-
-// function LogIn() {
-//     const [email, setEmail] = useState('');
-//     const [password, setPassword] = useState('');
-//     const [error, setError] = useState('');
-
-//     const handleSubmit = (e) => {
-//         e.preventDefault();
-//         const user = users.find(
-//             (user) => user.email === email && user.password === password
-//         );
-//         if (user) {
-//             setLoged(true);
-//             history.push('/');
-//         } else {
-//             setError('Email or password is incorrect.');
-//         }
-//     };
-
-//     // El resto de tu código
-// }
