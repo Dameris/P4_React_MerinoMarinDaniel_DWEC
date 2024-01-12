@@ -45,7 +45,7 @@ const AnimeDetails = () => {
                 Source: {anime.source} <br />
                 Episodes: {anime.episodes} <br />
                 Status: {anime.status}
-                Aired: {anime.aired.from}
+                {/* Aired: {anime.aired.from} */}
             </p>
         </div>
     )

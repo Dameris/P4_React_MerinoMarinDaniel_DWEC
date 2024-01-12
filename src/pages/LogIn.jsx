@@ -1,43 +1,65 @@
-import React, { useState } from 'react'
-import { NavLink, useNavigate } from 'react-router-dom'
-import logo from "../images/logo.png"
-import { useUserContext } from "../context/UserContext"
-
-
+import React, { useState } from 'react';
+import { NavLink } from 'react-router-dom';
 
 export default function LogIn() {
-  const { user, setUser, loged, setLoged, favs, setFavs } = useUserContext()
-  const navigate = useNavigate()
+  const [user, setUser] = useState({ username: '', password: '' });
+  const [error, setError] = useState('');
 
-  const loginUser = (e) => {
-    e.preventDefault()
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setUser({ ...user, [name]: value });
+  };
 
-    if (localStorage.hasOwnProperty(e.target.user.value + "favs")) {
-      setUser(e.target.user.value)
-      setFavs(localStorage.getItem(e.target.user.value + "favs").split(","))
-      setLoged(true)
-      navigate("/")
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const storedUser = JSON.parse(localStorage.getItem('user'));
+    if (storedUser && storedUser.username === user.username && storedUser.password === user.password) {
+      // Permitir que el usuario acceda a la aplicación
     } else {
-      setUser(e.target.user.value)
-      setFavs([])
-      setLoged(true)
-      navigate("/")
+      setError('Usuario o contraseña incorrectos');
     }
-  }
+  };
 
   return (
-    <div className='mainSesion'>
-      <img className="mainLogo" src={logo} alt="Main Logo" />
-      <form className="formSesion" onSubmit={loginUser}>
-        <label htmlFor="user">
-          <input className="sesion" type="text" id="user" name="user" placeholder="User" required />
+    <div>
+      <h2>Iniciar sesión</h2>
+      <form onSubmit={handleSubmit}>
+        <label>
+          Usuario:
+          <input type="text" name="username" value={user.username} onChange={handleChange} />
         </label>
-        <label htmlFor="password">
-          <input className="sesion" type="password" id="password" name="password" placeholder="Password" required />
+        <label>
+          Contraseña:
+          <input type="password" name="password" value={user.password} onChange={handleChange} />
         </label>
-        <button type="submit" className="submitBtn">Login</button>
+        {error && <p>{error}</p>}
+        <button type="submit">Iniciar sesión</button>
         <NavLink to="/singup" className={"navLink"}>¿No tienes cuenta? ¡Regístrate!</NavLink>
       </form>
     </div>
   )
 }
+
+// import React, { useState } from 'react';
+// import { useHistory } from 'react-router-dom';
+
+// function LogIn() {
+//     const [email, setEmail] = useState('');
+//     const [password, setPassword] = useState('');
+//     const [error, setError] = useState('');
+
+//     const handleSubmit = (e) => {
+//         e.preventDefault();
+//         const user = users.find(
+//             (user) => user.email === email && user.password === password
+//         );
+//         if (user) {
+//             setLoged(true);
+//             history.push('/');
+//         } else {
+//             setError('Email or password is incorrect.');
+//         }
+//     };
+
+//     // El resto de tu código
+// }
