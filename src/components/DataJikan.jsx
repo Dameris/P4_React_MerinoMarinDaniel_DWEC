@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react"
-import { Card, Button } from "react-bootstrap"
+import { Card } from "react-bootstrap"
 import { Link } from "react-router-dom"
 
 const DataJikan = ({ search }) => {
