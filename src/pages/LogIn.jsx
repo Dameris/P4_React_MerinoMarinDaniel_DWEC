@@ -1,5 +1,5 @@
 import React, { useState } from "react"
-import { NavLink } from "react-router-dom"
+import { Navigate, NavLink } from "react-router-dom"
 import { useUserContext } from "../context/UserContext"
 
 export default function LogIn() {
@@ -11,12 +11,13 @@ export default function LogIn() {
   })
   const [error, setError] = useState("")
   const { setLoged } = useUserContext()
+  const [redirect, setRedirect] = useState(false)
 
   // Manejar cambios en el formulario
   const handleChange = (e) => {
     const { name, value } = e.target
     setUser({ ...user, [name]: value })
-  }
+  };
 
   // Manejar los datos enviados
   const handleSubmit = (e) => {
@@ -30,7 +31,12 @@ export default function LogIn() {
       setError("Incorrect username or password")
     } else {
       setLoged(true)
+      setRedirect(true)
     }
+  }
+
+  if (redirect) {
+    return <Navigate to="/" />;
   }
 
   return (
@@ -47,7 +53,7 @@ export default function LogIn() {
         </label>
         {error && <p>{error}</p>}
         <button type="submit">Log In</button>
-        <NavLink to="/singup" className="navLink">Don't have an account? Sing Up!</NavLink>
+        <NavLink to="/signup" className="navLink">Don't have an account? Sign Up!</NavLink>
       </form>
     </div>
   )

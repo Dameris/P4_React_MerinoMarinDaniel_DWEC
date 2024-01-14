@@ -1,18 +1,14 @@
 import React, { useState, useEffect } from "react"
-import { useParams } from "react-router-dom"
+import { useParams, useNavigate } from "react-router-dom"
 import { useUserContext } from "../context/UserContext"
-import { useNavigate } from "react-router-dom"
 
 const AnimeDetails = () => {
-    // Inicializar los estados del componente
     const { animeId } = useParams()
     const [animeResults, setAnimeResults] = useState({ data: {} })
     const [animeImg, setAnimeImg] = useState("")
-    const [favorites, setFavorites] = useState([])
-    const { loged, user } = useUserContext()
+    const { loged, user, updateUserFavorites } = useUserContext()
     const navigate = useNavigate()
 
-    // Llamada a "API Jikan" para obtener todos los datos de un anime por su ID
     useEffect(() => {
         const getAnimeData = async () => {
             try {
@@ -23,38 +19,30 @@ const AnimeDetails = () => {
             } catch (error) {
                 console.error('Error fetching anime data from Jikan API', error)
             }
-        }
+        };
 
         getAnimeData()
     }, [animeId])
 
-    // Obtener lista favoritos de localStorage
     useEffect(() => {
-        const savedFavorites = JSON.parse(localStorage.getItem("favorites")) || []
-        setFavorites(savedFavorites)
-    }, [])
+        const savedFavorites = user && user.favorites ? user.favorites : []
+        updateUserFavorites(savedFavorites)
+    }, [user, updateUserFavorites])
 
-    // Guardar favoritos en localStorage
-    useEffect(() => {
-        localStorage.setItem("favorites", JSON.stringify(favorites))
-    }, [favorites])
+    const addToFavorites = (animeId) => {
+        if (!user?.favorites.includes(animeId)) {
+            updateUserFavorites([...user.favorites, animeId])
+        }
+    }
 
-    if (!animeResults.data) {
-        return <div>No anime found.</div>
+    const removeFromFavorites = (animeId) => {
+        updateUserFavorites(user?.favorites.filter((id) => id !== animeId))
     }
 
     const anime = animeResults.data
 
-    // Añadir anime a favoritos
-    const addToFavorites = (animeId) => {
-        if (!favorites.includes(animeId)) {
-            setFavorites([...favorites, animeId])
-        }
-    }
-
-    // Eliminar anime de favoritos
-    const removeFromFavorites = (animeId) => {
-        setFavorites(favorites.filter((id) => id !== animeId))
+    if (!anime) {
+        return <div>No anime found.</div>
     }
 
     return (
@@ -73,10 +61,13 @@ const AnimeDetails = () => {
                     if (!loged) {
                         navigate("/login")
                     } else {
-                        favorites.includes(anime.mal_id) ? removeFromFavorites(anime.mal_id) : addToFavorites(anime.mal_id)
+                        if (user && user.favorites) {
+                            const isFavorite = user.favorites.includes(anime.mal_id)
+                            isFavorite ? removeFromFavorites(anime.mal_id) : addToFavorites(anime.mal_id)
+                        }
                     }
                 }}>
-                    {favorites.includes(anime.mal_id) ? "Remove from favorites" : "Add to favorites"}
+                    {user && user.favorites && user.favorites.includes(anime.mal_id) ? "Remove from favorites" : "Add to favorites"}
                 </button> <br />
                 Type: {anime.type} <br />
                 Source: {anime.source} <br />
