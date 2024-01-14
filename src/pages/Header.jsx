@@ -5,13 +5,12 @@ import { NavLink, Link, useNavigate } from "react-router-dom"
 import { useUserContext } from "../context/UserContext"
 
 function header() {
-    const { user, setUser, favs, setFavs, loged, setLoged } = useUserContext()
+    const { user, setUser, loged, setLoged } = useUserContext()
     const navigate = useNavigate()
 
     const cerrarSesion = () => {
         setLoged(false)
-        localStorage.setItem(user + "favs", favs)
-        setFavs(null)
+        localStorage.setItem(user)
         navigate("/")
     }
 

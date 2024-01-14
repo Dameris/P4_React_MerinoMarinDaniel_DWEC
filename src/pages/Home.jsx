@@ -15,7 +15,7 @@ const Home = () => {
     <div className="min">
       <h1 className="text-center">Anime Search</h1>
       <Search onSearch={handleSearch} />
-      {/* /* Si "searchTerm" no está vacío, se renderiza el componente "<DataJikan>" */}
+      {/* Si "searchTerm" no está vacío, se renderiza el componente "<DataJikan>" */}
       {searchTerm && <DataJikan search={searchTerm} />}
     </div>
   )

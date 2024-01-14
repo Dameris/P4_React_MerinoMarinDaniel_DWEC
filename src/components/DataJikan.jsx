@@ -30,9 +30,7 @@ const DataJikan = ({ search }) => {
                         <Card.Img variant="top" src={anime.images.jpg.image_url} className="animeImg" />
                         <Card.Body></Card.Body>
                         <Card.Footer className="cardName">
-                            <Link to={`/animeDetails/${anime.mal_id}`}>
-                                {anime.title}
-                            </Link>
+                            <Link to={`/animeDetails/${anime.mal_id}`}>{anime.title}</Link>
                         </Card.Footer>
                     </Card>
                 ))}
