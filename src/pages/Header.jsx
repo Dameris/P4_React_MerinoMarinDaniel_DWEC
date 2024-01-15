@@ -8,9 +8,8 @@ function header() {
     const { user, setUser, logged, setLogged } = useUserContext()
     const navigate = useNavigate()
 
-    const cerrarSesion = () => {
+    const logout = () => {
         setLogged(false)
-        localStorage.setItem(user)
         navigate("/")
     }
 
@@ -28,7 +27,7 @@ function header() {
                 {logged ? (
                     <ul className="btnsHeader">
                         <li className="liLogged"><NavLink to="/userProfile">Profile</NavLink></li>
-                        <li onClick={cerrarSesion}>Logout</li>
+                        <li onClick={logout}>Logout</li>
                     </ul>
                 ) : (
                     <li><NavLink to="/login"><FaUserAlt /></NavLink></li>

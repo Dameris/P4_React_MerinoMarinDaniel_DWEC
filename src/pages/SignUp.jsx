@@ -1,4 +1,5 @@
 import React, { useState } from "react"
+import { Navigate } from "react-router"
 
 export default function SignUp() {
   const [user, setUser] = useState({
@@ -7,6 +8,7 @@ export default function SignUp() {
     password: "",
     birthday: ""
   })
+  const [redirect, setRedirect] = useState(false)
 
   // Manejar cambios en el formulario
   const handleChange = (e) => {
@@ -31,13 +33,13 @@ export default function SignUp() {
     } else {
       users.push(newUser)
       localStorage.setItem("users", JSON.stringify(users))
-      setUser({
-        email: "",
-        username: "",
-        password: "",
-        birthday: ""
-      })
+
+      setRedirect(true)
     }
+  }
+
+  if (redirect) {
+    return <Navigate to="/logIn" />
   }
 
   return (

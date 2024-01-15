@@ -24,19 +24,20 @@ export default function LogIn() {
     e.preventDefault()
 
     const storedUsers = JSON.parse(localStorage.getItem("users")) || []
-    const userExists = storedUsers.some((existingUser) => existingUser.username === user.username)
-    const passwordExists = storedUsers.some((existingUser) => existingUser.password === user.password)
+    const userExists = storedUsers.find((existingUser) => existingUser.username === user.username && existingUser.password === user.password)
 
-    if (!userExists || !passwordExists) {
+    if (!userExists) {
       setError("Incorrect username or password")
     } else {
+      localStorage.setItem("loggedUser", user.username)
+
       setLogged(true)
       setRedirect(true)
     }
   }
 
   if (redirect) {
-    return <Navigate to="/" />;
+    return <Navigate to="/" />
   }
 
   return (
@@ -52,7 +53,7 @@ export default function LogIn() {
           <input type="password" name="password" value={user.password} onChange={handleChange} />
         </label>
         {error && <p>{error}</p>}
-        <button type="submit">Log In</button>
+        <button type="submit" name="submit">Log In</button>
         <NavLink to="/signup" className="navLink">Don't have an account? Sign Up!</NavLink>
       </form>
     </div>
