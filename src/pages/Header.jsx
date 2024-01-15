@@ -5,11 +5,11 @@ import { NavLink, Link, useNavigate } from "react-router-dom"
 import { useUserContext } from "../context/UserContext"
 
 function header() {
-    const { user, setUser, loged, setLoged } = useUserContext()
+    const { user, setUser, logged, setLogged } = useUserContext()
     const navigate = useNavigate()
 
     const cerrarSesion = () => {
-        setLoged(false)
+        setLogged(false)
         localStorage.setItem(user)
         navigate("/")
     }
@@ -25,7 +25,7 @@ function header() {
                 </ul>
             </nav>
             <ul className="iconsHeader">
-                {loged ? (
+                {logged ? (
                     <ul className="btnsHeader">
                         <li className="liLogged"><NavLink to="/userProfile">Profile</NavLink></li>
                         <li onClick={cerrarSesion}>Logout</li>

@@ -8,6 +8,7 @@ import Singup from "../pages/SignUp"
 import AnimeDetails from "../components/AnimeDetails"
 import LayoutPrivate from "../layouts/LayoutPrivate"
 import FavAnime from "../pages/FavAnime"
+import UserProfile from "../pages/UserProfile"
 
 export const router = createBrowserRouter(
   [
@@ -29,7 +30,7 @@ export const router = createBrowserRouter(
           element: <Login />
         },
         {
-          path: "/singup",
+          path: "/signup",
           element: <Singup />
         },
         {
@@ -46,6 +47,10 @@ export const router = createBrowserRouter(
         {
           index: true,
           element: <Home />
+        },
+        {
+          path: "/userProfile",
+          element: <UserProfile />
         },
         {
           path: "/favAnime",

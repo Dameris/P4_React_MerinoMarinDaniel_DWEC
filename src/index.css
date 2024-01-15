@@ -157,6 +157,12 @@ header {
     white-space: pre-wrap;
 } */
 
+/* User Profile */
+.defaultPfp {
+    margin: auto;
+    display: block;
+}
+
 /* Footer */
 footer {
     width: 100%;

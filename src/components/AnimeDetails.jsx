@@ -6,7 +6,7 @@ const AnimeDetails = () => {
     const { animeId } = useParams()
     const [animeResults, setAnimeResults] = useState({ data: {} })
     const [animeImg, setAnimeImg] = useState("")
-    const { loged, user, updateUserFavorites } = useUserContext()
+    const { logged, user, updateUserFavorites } = useUserContext()
     const navigate = useNavigate()
 
     useEffect(() => {
@@ -58,7 +58,7 @@ const AnimeDetails = () => {
 
             <p className="detailsP">
                 <button onClick={() => {
-                    if (!loged) {
+                    if (!logged) {
                         navigate("/login")
                     } else {
                         if (user && user.favorites) {

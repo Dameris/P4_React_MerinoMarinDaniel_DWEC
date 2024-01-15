@@ -10,7 +10,7 @@ export default function LogIn() {
     birthday: ""
   })
   const [error, setError] = useState("")
-  const { setLoged } = useUserContext()
+  const { setLogged } = useUserContext()
   const [redirect, setRedirect] = useState(false)
 
   // Manejar cambios en el formulario
@@ -30,7 +30,7 @@ export default function LogIn() {
     if (!userExists || !passwordExists) {
       setError("Incorrect username or password")
     } else {
-      setLoged(true)
+      setLogged(true)
       setRedirect(true)
     }
   }

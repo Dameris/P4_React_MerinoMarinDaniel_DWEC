@@ -6,14 +6,14 @@ import Footer from "../pages/Footer"
 
 export default function LayoutPrivate() {
 
-    const { loged } = useUserContext()
+    const { logged } = useUserContext()
     const navigate = useNavigate()
 
     useEffect(() => {
-        if (!loged) {
+        if (!logged) {
             navigate("/login")
         }
-    }, [loged])
+    }, [logged])
 
     return (
         <div>

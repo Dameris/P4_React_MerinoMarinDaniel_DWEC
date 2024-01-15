@@ -3,16 +3,19 @@ import React, { createContext, useContext, useState } from "react"
 const UserContext = createContext();
 
 const UserProvider = ({ children }) => {
-  const [user, setUser] = useState(null, {favorites: []})
-  const [loged, setLoged] = useState(false)
+  const [user, setUser] = useState({ username, email, birthday, favorites: [] })
+  const [logged, setLogged] = useState(false)
 
   // Agrega una propiedad de favoritos al objeto de usuario
-  const updateUserFavorites = (favorites) => {
-    setUser({ ...user, favorites })
+  const updateUserFavorites = (newFavorites) => {
+    setUser((prevUser) => ({
+      ...prevUser,
+      favorites: newFavorites,
+    }))
   }
 
   return (
-    <UserContext.Provider value={{ user, setUser, loged, setLoged, updateUserFavorites }}>
+    <UserContext.Provider value={{ user, setUser, logged, setLogged, updateUserFavorites }}>
       {children}
     </UserContext.Provider>
   )
