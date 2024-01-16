@@ -13,6 +13,7 @@ body {
     min-height: 100vh;
     margin: 0;
     position: relative;
+    background-color: rgb(156, 212, 178);
 }
 
 /* Header */
@@ -40,7 +41,6 @@ header {
     display: flex;
     width: 100%;
     font-size: 25px;
-    font-family: cursive;
     justify-content: space-between;
     margin-right: 10vw;
 
@@ -56,7 +56,7 @@ header {
 
     a:hover,
     li:hover {
-        color: crimson;
+        color: #5e3806;
         transition: color 350ms ease;
     }
 }
@@ -74,12 +74,12 @@ header {
     }
 
     a:hover {
-        color: greenyellow;
+        color: #5e3806;
         transition: color 350ms ease;
     }
 
     li:hover {
-        color: greenyellow;
+        color: #5e3806;
         transition: color 350ms ease;
     }
 }
@@ -100,6 +100,180 @@ header {
     border-color: crimson;
 }
 
+/* Logo */
+.mainLogo {
+    width: 15%;
+    display: block;
+    margin: auto;
+}
+
+/* Log In */
+.logInWallpaper {
+    background-image: url("../src/images/wallpaper5.png");
+    background-size: cover;
+    background-position: center;
+    height: 100vh;
+}
+
+.formLogIn {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.logInBlock {
+    display: flex;
+    flex-direction: column;
+    width: 400px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 20px;
+    text-align: center;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    background-color: rgb(252, 193, 178);
+}
+
+.login,
+.submitLogIn {
+    padding: 10px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    font-size: 16px;
+    width: 100%;
+}
+
+.login:focus,
+.submitLogIn:focus {
+    outline: none;
+    box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.1);
+}
+
+.submitLogIn {
+    background-color: #4b3e3e;
+    color: white;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+.submitLogIn:hover {
+    background-color: #745e5e;
+}
+
+/* Sign Up */
+.signUpWallpaper {
+    background-image: url("../src/images/wallpaper6.jpg");
+    background-size: cover;
+    background-position: center;
+    height: 100vh;
+}
+
+.formSignUp {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.signUpBlock {
+    display: flex;
+    flex-direction: column;
+    width: 400px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 20px;
+    text-align: center;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    background-color: rgb(252, 207, 178);
+}
+
+.signup,
+.submitSignUp {
+    padding: 10px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    font-size: 16px;
+    width: 100%;
+}
+
+.signup:focus,
+.submitSignUp:focus {
+    outline: none;
+    box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.1);
+}
+
+.submitSignUp {
+    background-color: #4b3e3e;
+    color: white;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+.submitSignUp:hover {
+    background-color: #745e5e;
+}
+
+/* Contact */
+.contactWallpaper {
+    background-image: url("../src/images/wallpaper4.png");
+    background-size: cover;
+    background-position: center;
+    height: 100vh;
+}
+
+.formContact {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.formBlock {
+    display: flex;
+    flex-direction: column;
+    width: 400px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 20px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    background-color: rgb(252, 178, 191);
+}
+
+.contact,
+.submit {
+    padding: 10px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    font-size: 16px;
+    width: 100%;
+}
+
+.contact:focus,
+.submit:focus {
+    outline: none;
+    box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.1);
+}
+
+textarea {
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    font-size: 16px;
+    width: 100%;
+    height: 100px;
+}
+
+.submit {
+    background-color: #4b3e3e;
+    color: white;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+.submit:hover {
+    background-color: #745e5e;
+}
+
 /* Search */
 .searchForm {
     display: flex;
@@ -114,6 +288,33 @@ header {
     display: flex;
     align-items: center;
     justify-content: space-between;
+    font-size: large;
+}
+
+.search,
+.submitSearch {
+    padding: 10px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    font-size: 16px;
+    width: 20%;
+}
+
+.search:focus,
+.submitSearch:focus {
+    outline: none;
+    box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.1);
+}
+
+.submitSearch {
+    background-color: #4b3e3e;
+    color: white;
+    cursor: pointer;
+}
+
+.submitSearch:hover {
+    background-color: #745e5e;
 }
 
 /* DataJikan */
@@ -167,16 +368,43 @@ header {
 
 /* User Profile */
 .userProfile {
-    background-image: url("../src/images/wallpaper1.png");
+    background-image: url("../src/images/wallpaper2.jpg");
     background-size: cover;
     background-position: center;
     height: 100vh;
+    padding: 20px;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    flex-direction: column;
+}
+
+.pfInfo {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    width: 600px;
+    padding: 20px;
+    margin-top: 10vh;
+    background-color: #292323a9;
 }
 
 .defaultPfp {
-    margin: auto;
-    display: block;
-    padding-top: 2em;
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    margin-bottom: 20px;
+}
+
+.userInfoBox {
+    color: #ffffff;
+    font-size: xx-large;
+    padding: 15px;
+    border-radius: 10px;
+    margin-top: 20px;
+    text-align: justify;
 }
 
 /* Footer */
@@ -228,7 +456,6 @@ footer {
     justify-content: space-between;
     column-gap: 60px;
     font-size: 25px;
-    font-family: cursive;
     margin-right: 4vw;
 
     li {

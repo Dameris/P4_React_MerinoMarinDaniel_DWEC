@@ -1,5 +1,6 @@
 import React, { useState } from "react"
 import { Navigate } from "react-router"
+import logo from "../images/logo.png"
 
 export default function SignUp() {
   const [user, setUser] = useState({
@@ -43,25 +44,27 @@ export default function SignUp() {
   }
 
   return (
-    <div>
-      <h2>Sign Up</h2>
-      <form onSubmit={handleSubmit}>
-        <label htmlFor="email">
-          <input type="email" id="email" name="email" placeholder="Email" value={user.email} onChange={handleChange} required />
-        </label>
-        <label htmlFor="user">
-          <input type="text" id="user" name="username" placeholder="User" minLength={4} maxLength={20} value={user.username} onChange={handleChange} required />
-        </label>
-        <label htmlFor="password">
-          <input type="password" id="password" name="password" placeholder="Password" minLength={8} maxLength={20} value={user.password} onChange={handleChange} required />
-        </label>
-        <label htmlFor="birthday">
-          <input type="date" id="birthday" name="birthday" value={user.birthday} onChange={handleChange} required />
-        </label>
-        <label htmlFor="terms">
-          <input type="checkbox" id="terms" name="terms" /> I agree to the terms and conditions
-        </label>
-        <button type="submit">Sign Up</button>
+    <div className="signUpWallpaper">
+      <img className="mainLogo" src={logo} alt="Main Logo" />
+      <form onSubmit={handleSubmit} className="formSignUp">
+        <div className="signUpBlock">
+          <label htmlFor="email">
+            <input className="signup" type="email" id="email" name="email" placeholder="Email" value={user.email} onChange={handleChange} required />
+          </label>
+          <label htmlFor="user">
+            <input className="signup" type="text" id="user" name="username" placeholder="User" minLength={4} maxLength={20} value={user.username} onChange={handleChange} required />
+          </label>
+          <label htmlFor="password">
+            <input className="signup" type="password" id="password" name="password" placeholder="Password" minLength={8} maxLength={20} value={user.password} onChange={handleChange} required />
+          </label>
+          <label htmlFor="birthday">
+            <input className="signup" type="date" id="birthday" name="birthday" value={user.birthday} onChange={handleChange} required />
+          </label>
+          <label htmlFor="terms">
+            <input type="checkbox" id="terms" name="terms" required /> I agree terms and conditions
+          </label>
+          <button className="submitSignUp" type="submit">Sign Up</button>
+        </div>
       </form>
     </div>
   )

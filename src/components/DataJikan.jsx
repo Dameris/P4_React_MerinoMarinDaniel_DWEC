@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react"
 import { Card } from "react-bootstrap"
 import { Link } from "react-router-dom"
 
-const DataJikan = ({ search, genre, page, resultsPerPage, onPageChange }) => {
+const DataJikan = ({ search, genre, page, resultsPerPage }) => {
     const [animeResults, setAnimeResults] = useState([])
     const [totalPages, setTotalPages] = useState(0)
 
@@ -31,9 +31,9 @@ const DataJikan = ({ search, genre, page, resultsPerPage, onPageChange }) => {
     // Filtrar animes por género
     const filteredAnimeResults = animeResults ? animeResults.filter((anime) => {
         if (!genre) {
-            return true;
+            return true
         } else {
-            return anime.genres.some((animeGenre) => genre === animeGenre.name);
+            return anime.genres.some((animeGenre) => genre === animeGenre.name)
         }
     }) : []
 

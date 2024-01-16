@@ -1,6 +1,7 @@
 import React, { useState } from "react"
 import { Navigate, NavLink } from "react-router-dom"
 import { useUserContext } from "../context/UserContext"
+import logo from "../images/logo.png"
 
 export default function LogIn() {
   const [user, setUser] = useState({
@@ -41,20 +42,20 @@ export default function LogIn() {
   }
 
   return (
-    <div>
-      <h2>Log In</h2>
-      <form onSubmit={handleSubmit}>
-        <label>
-          User:
-          <input type="text" name="username" value={user.username} onChange={handleChange} />
-        </label>
-        <label>
-          Password:
-          <input type="password" name="password" value={user.password} onChange={handleChange} />
-        </label>
-        {error && <p>{error}</p>}
-        <button type="submit" name="submit">Log In</button>
-        <NavLink to="/signup" className="navLink">Don't have an account? Sign Up!</NavLink>
+    <div className="logInWallpaper">
+      <img className="mainLogo" src={logo} alt="Main Logo" />
+      <form onSubmit={handleSubmit} className="formLogIn">
+        <div className="logInBlock">
+          <label htmlFor="user">
+            <input className="login" type="text" name="username" placeholder="Username" value={user.username} onChange={handleChange} />
+          </label>
+          <label htmlFor="password">
+            <input className="login" type="password" name="password" placeholder="Password" value={user.password} onChange={handleChange} />
+          </label>
+          {error && <p>{error}</p>}
+          <button className="submitLogIn" type="submit" name="submit">Log In</button>
+          <NavLink to="/signup" className="navLink">Don't have an account? Sign Up!</NavLink>
+        </div>
       </form>
     </div>
   )

@@ -39,20 +39,21 @@ const Search = ({ onSearch }) => {
     <div>
       <form onSubmit={handleSubmit} className="searchForm">
         <input
+        className="search"
           type="text"
           placeholder="Search anime..."
           value={searchInput}
           onChange={(event) => setSearchInput(event.target.value)}
         />
-        <select value={selectedGenre} onChange={(event) => setSelectedGenre(event.target.value)}>
-          <option value="">All genres</option>
+        <select className="search" value={selectedGenre} onChange={(event) => setSelectedGenre(event.target.value)}>
+          <option className="search" value="genres">All genres</option>
           {genres.map((genre) => (
             <option key={genre.mal_id} value={genre.name}>
               {genre.name}
             </option>
           ))}
         </select>
-        <button type="submit">Search</button>
+        <button className="submitSearch" type="submit">Search</button>
       </form>
       <DataJikan
         search={searchInput}
@@ -62,13 +63,9 @@ const Search = ({ onSearch }) => {
         onPageChange={handlePageChange}
       />
       <div className="pagination">
-        <button onClick={() => handlePageChange(currentPage - 1)} disabled={currentPage === 1}>
-          Previous Page
-        </button>
+        <button onClick={() => handlePageChange(currentPage - 1)} disabled={currentPage === 1}>Previous Page</button>
         <span>{currentPage}</span>
-        <button onClick={() => handlePageChange(currentPage + 1)}>
-          Next Page
-        </button>
+        <button onClick={() => handlePageChange(currentPage + 1)}>Next Page</button>
       </div>
     </div>
   )

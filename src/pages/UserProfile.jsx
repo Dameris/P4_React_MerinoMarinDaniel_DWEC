@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react"
-import defaultpfp from "../images/defaultpfp.png"
+import pfp from "../images/pfp.jpg"
 
 const UserProfile = () => {
   const [user, setUser] = useState({
@@ -21,10 +21,14 @@ const UserProfile = () => {
 
   return (
     <div className="userProfile">
-      <img className="defaultPfp" src={defaultpfp} alt="Profile" />
-      <p>Username: {user.username}</p>
-      <p>Email: {user.email}</p>
-      <p>Birthday: {user.birthday}</p>
+      <div className="pfInfo">
+        <img className="defaultPfp" src={pfp} alt="Profile" />
+        <div className="userInfoBox">
+          <p>Username: {user.username} <br /></p>
+          <p>Email: {user.email} <br /></p>
+          <p>Birthday: {user.birthday}</p>
+        </div>
+      </div>
     </div>
   )
 }

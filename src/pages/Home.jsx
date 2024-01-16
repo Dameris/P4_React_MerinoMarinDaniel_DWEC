@@ -13,7 +13,7 @@ const Home = () => {
   }
 
   return (
-    <div className="min">
+    <div>
       <h1 className="text-center">Anime Orbit</h1>
       <Search onSearch={handleSearch} />
       {searchTerm && <DataJikan search={searchTerm} genre={selectedGenre} />}
