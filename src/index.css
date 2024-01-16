@@ -13,7 +13,6 @@ body {
     min-height: 100vh;
     margin: 0;
     position: relative;
-    padding-bottom: 6em;
 }
 
 /* Header */
@@ -109,12 +108,12 @@ header {
 }
 
 .pagination {
-    position: flex;
+    width: 100%;
+    position: absolute;
+    bottom: 10.9vh;
+    display: flex;
+    align-items: center;
     justify-content: space-between;
-    margin-top: 1vh;
-    margin-bottom: 1vh;
-    margin-left: 1vw;
-    margin-right: 1vw;
 }
 
 /* DataJikan */
@@ -123,7 +122,7 @@ header {
     justify-content: center;
     flex-wrap: wrap;
     list-style: none;
-    padding: 0;
+    padding-bottom: 8em;
     margin: 0;
 }
 
@@ -151,9 +150,9 @@ header {
 }
 
 /* Anime Details */
-/* .detailsDiv {
-    background-image: url("anime.images?.jpg?.large_image_url");
-} */
+.detailsDiv {
+    padding-bottom: 8em;
+}
 
 .imgSynopsis {
     display: flex;
@@ -167,9 +166,17 @@ header {
 } */
 
 /* User Profile */
+.userProfile {
+    background-image: url("../src/images/wallpaper1.png");
+    background-size: cover;
+    background-position: center;
+    height: 100vh;
+}
+
 .defaultPfp {
     margin: auto;
     display: block;
+    padding-top: 2em;
 }
 
 /* Footer */

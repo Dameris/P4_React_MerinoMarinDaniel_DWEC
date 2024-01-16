@@ -20,8 +20,7 @@ const UserProfile = () => {
   }, [])
 
   return (
-    <div>
-      <h1>Profile</h1>
+    <div className="userProfile">
       <img className="defaultPfp" src={defaultpfp} alt="Profile" />
       <p>Username: {user.username}</p>
       <p>Email: {user.email}</p>

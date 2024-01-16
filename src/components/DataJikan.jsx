@@ -37,16 +37,19 @@ const DataJikan = ({ search, genre, page, resultsPerPage, onPageChange }) => {
         }
     }) : []
 
+    const handleClick = (mal_id) => {
+        alert(`Redirecting to anime with ID ${mal_id}`)
+    }
+
     return (
         <div>
-            <h2>Results for "{search}":</h2>
             <ul className="animeList">
                 {filteredAnimeResults.map((anime) => (
                     <Card key={anime.mal_id} className="animeCard">
                         <Card.Img variant="top" src={anime.images.jpg.image_url} className="animeImg" />
                         <Card.Body></Card.Body>
                         <Card.Footer className="cardName">
-                            <Link to={`/animeDetails/${anime.mal_id}`}>{anime.title}</Link>
+                            <Link to={`/animeDetails/${anime.mal_id}`} onClick={() => handleClick(anime.mal_id)}>{anime.title}</Link>
                         </Card.Footer>
                     </Card>
                 ))}

@@ -43,7 +43,7 @@ const AnimeDetails = () => {
     const anime = animeResults.data
 
     if (!anime) {
-        return <div>No anime found.</div>
+        return <div>No anime found</div>
     }
 
     return (

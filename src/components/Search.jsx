@@ -6,7 +6,7 @@ const Search = ({ onSearch }) => {
   const [genres, setGenres] = useState([])
   const [selectedGenre, setSelectedGenre] = useState("")
   const [currentPage, setCurrentPage] = useState(1)
-  const [resultsPerPage] = useState(10)
+  const [resultsPerPage] = useState(20)
 
   // Llamada a "API Jikan" para obtener los géneros
   useEffect(() => {
@@ -32,7 +32,7 @@ const Search = ({ onSearch }) => {
   // Función que maneja el envío del formulario de búsqueda con paginación
   const handleSubmit = (event) => {
     event.preventDefault()
-    onSearch(searchInput, selectedGenre, currentPage, resultsPerPage);
+    onSearch(searchInput, selectedGenre, currentPage, resultsPerPage)
   }
 
   return (
