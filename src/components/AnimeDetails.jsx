@@ -20,7 +20,7 @@ const AnimeDetails = () => {
             } catch (error) {
                 console.error('Error fetching anime data from Jikan API', error)
             }
-        };
+        }
 
         getAnimeData()
     }, [animeId])

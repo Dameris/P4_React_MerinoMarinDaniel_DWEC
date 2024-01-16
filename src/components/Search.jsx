@@ -14,11 +14,12 @@ const Search = ({ onSearch }) => {
       try {
         const data = await fetch("https://api.jikan.moe/v4/genres/anime")
         const result = await data.json()
-        setGenres(result.data)
+        const sortedGenres = result.data.sort((a, b) => a.name.localeCompare(b.name))
+        setGenres(sortedGenres)
       } catch (error) {
         console.error("Error fetching anime genres from Jikan API", error)
       }
-    };
+    }
 
     getGenres()
   }, [])
@@ -30,7 +31,7 @@ const Search = ({ onSearch }) => {
 
   // Función que maneja el envío del formulario de búsqueda con paginación
   const handleSubmit = (event) => {
-    event.preventDefault();
+    event.preventDefault()
     onSearch(searchInput, selectedGenre, currentPage, resultsPerPage);
   }
 
