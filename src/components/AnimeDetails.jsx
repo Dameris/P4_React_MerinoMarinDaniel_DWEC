@@ -9,6 +9,7 @@ const AnimeDetails = () => {
     const { logged, user, updateUserFavorites } = useUserContext()
     const navigate = useNavigate()
 
+    // Llamada a "Jikan API" para obtener la info completa de los animmes a partir del ID
     useEffect(() => {
         const getAnimeData = async () => {
             try {

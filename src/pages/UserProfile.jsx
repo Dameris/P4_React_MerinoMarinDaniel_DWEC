@@ -9,10 +9,8 @@ const UserProfile = () => {
   })
 
   useEffect(() => {
-    // Retrieve username from localStorage
     const username = localStorage.getItem("loggedUser")
 
-    // Fetch user data based on the username from localStorage
     const storedUsers = JSON.parse(localStorage.getItem("users")) || []
     const currentUser = storedUsers.find((existingUser) => existingUser.username === username)
 
