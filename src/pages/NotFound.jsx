@@ -8,13 +8,13 @@ export default function NotFound() {
   return (
     <div>
       <Header />
-      <div className='Error'>
-        <section className="ErrorS">
-              <h1>
-                  ERROR 404
-              </h1>
+      <div className="error404">
+        <img className="mainLogo" src={logo} alt="Main Logo" />
+        <section>
+          <h1>ERROR 404</h1>
+          <h5>PAGE NOT FOUND</h5>
         </section>
-        <img className="mainLogo" src={logo} alt="Main Logo"/>
+        <img className="mainLogo" src={logo} alt="Main Logo" />
       </div>
       <Footer />
     </div>

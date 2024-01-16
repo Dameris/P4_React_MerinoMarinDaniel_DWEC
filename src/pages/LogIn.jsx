@@ -18,7 +18,7 @@ export default function LogIn() {
   const handleChange = (e) => {
     const { name, value } = e.target
     setUser({ ...user, [name]: value })
-  };
+  }
 
   // Manejar los datos enviados
   const handleSubmit = (e) => {

@@ -7,6 +7,8 @@ const FavAnime = () => {
     const { user } = useUserContext()
     const [favoriteAnimeDetails, setFavoriteAnimeDetails] = useState([])
 
+    // Llamada a la API para obtener los datos de los animes y
+    // para poder agregar los animes favoritos a la lista de favoritos
     useEffect(() => {
         const fetchFavoriteAnimeDetails = async () => {
             const detailsPromises = user.favorites.map(async (animeId) => {
@@ -17,7 +19,7 @@ const FavAnime = () => {
 
             const animeDetails = await Promise.all(detailsPromises)
             setFavoriteAnimeDetails(animeDetails)
-        };
+        }
 
         fetchFavoriteAnimeDetails()
     }, [user.favorites])

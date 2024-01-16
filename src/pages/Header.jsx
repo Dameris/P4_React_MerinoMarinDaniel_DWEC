@@ -5,7 +5,7 @@ import { NavLink, Link, useNavigate } from "react-router-dom"
 import { useUserContext } from "../context/UserContext"
 
 function header() {
-    const { user, setUser, logged, setLogged } = useUserContext()
+    const { logged, setLogged } = useUserContext()
     const navigate = useNavigate()
 
     const logout = () => {

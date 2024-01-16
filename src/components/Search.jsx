@@ -29,7 +29,7 @@ const Search = ({ onSearch }) => {
     setCurrentPage(newPage)
   }
 
-  // Función que maneja el envío del formulario de búsqueda con paginación
+  // Función que maneja el envío del formulario
   const handleSubmit = (event) => {
     event.preventDefault()
     onSearch(searchInput, selectedGenre, currentPage, resultsPerPage)
@@ -39,7 +39,7 @@ const Search = ({ onSearch }) => {
     <div>
       <form onSubmit={handleSubmit} className="searchForm">
         <input
-        className="search"
+          className="search"
           type="text"
           placeholder="Search anime..."
           value={searchInput}
