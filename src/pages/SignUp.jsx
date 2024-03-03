@@ -9,7 +9,21 @@ export default function SignUp() {
     password: "",
     birthday: ""
   })
+
+  const [formErrors, setFormErrors] = useState({
+    emailError: false,
+    usernameError: false,
+    passwordError: false,
+    birthdayError: false
+  })
+
   const [redirect, setRedirect] = useState(false)
+
+  // Manejo de errores en el formulario
+  const validateEmail = () => {
+    const emailPattern = /^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,}$/
+    setFormErrors({ ...formErrors, emailError: !emailPattern.test(formData.email) })
+  }
 
   // Manejar cambios en el formulario
   const handleChange = (e) => {
@@ -24,8 +38,8 @@ export default function SignUp() {
     const storedUsers = localStorage.getItem("users")
     const users = storedUsers ? JSON.parse(storedUsers) : []
     const newUser = { ...user }
-    const userExists = users.some((existingUser) => existingUser.username === newUser.username)
-    const emailExist = users.some((existingEmail) => existingEmail.email === newUser.email)
+    const userExists = users.some((existingUser) => existingUser.username === newUser.username);
+    const emailExist = users.some((existingEmail) => existingEmail.email === newUser.email);
 
     if (userExists) {
       alert("Username already exists")
