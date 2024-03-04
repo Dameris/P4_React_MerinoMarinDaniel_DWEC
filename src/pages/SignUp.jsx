@@ -14,6 +14,7 @@ export default function SignUp() {
 		emailError: false,
 		usernameError: false,
 		passwordError: false,
+		birthdayError: false,
 	})
 
 	const [redirect, setRedirect] = useState(false)
@@ -41,6 +42,16 @@ export default function SignUp() {
 		setFormErrors({ ...formErrors, passwordError: !hasLength || !hasUpperCase || !hasSpecialChar })
 	}
 
+	const validateBirthday = () => {
+		const birthdayDate = new Date(user.birthday)
+		const minDate = new Date("1900-01-01")
+		const maxDate = today.toISOString().slice(0, 10)
+
+		const isValidDate = minDate < birthdayDate > maxDate
+
+		setFormErrors({ ...formErrors, birthdayError: !isValidDate })
+	}
+
 	// Manejar cambios en el formulario
 	const handleChange = (e) => {
 		const { name, value } = e.target
@@ -54,29 +65,30 @@ export default function SignUp() {
 		validateEmail()
 		validateUsername()
 		validatePassword()
+		validateBirthday()
 
 		// Comprobar si hay errores
 		if (formErrors.emailError || formErrors.usernameError || formErrors.passwordError) {
 			alert("All input fields must contain valid information.")
 		} else {
 			alert("Form submitted successfully!")
-		}
 
-		const storedUsers = localStorage.getItem("users")
-		const users = storedUsers ? JSON.parse(storedUsers) : []
-		const newUser = { ...user }
-		const userExists = users.some((existingUser) => existingUser.username === newUser.username)
-		const emailExist = users.some((existingEmail) => existingEmail.email === newUser.email)
+			const storedUsers = localStorage.getItem("users")
+			const users = storedUsers ? JSON.parse(storedUsers) : []
+			const newUser = { ...user }
+			const userExists = users.some((existingUser) => existingUser.username === newUser.username)
+			const emailExist = users.some((existingEmail) => existingEmail.email === newUser.email)
 
-		if (userExists) {
-			alert("Username already exists")
-		} else if (emailExist) {
-			alert("Email already exists")
-		} else {
-			users.push(newUser)
-			localStorage.setItem("users", JSON.stringify(users))
+			if (userExists) {
+				alert("Username already exists")
+			} else if (emailExist) {
+				alert("Email already exists")
+			} else {
+				users.push(newUser)
+				localStorage.setItem("users", JSON.stringify(users))
 
-			setRedirect(true)
+				setRedirect(true)
+			}
 		}
 	}
 
@@ -149,6 +161,7 @@ export default function SignUp() {
 							name="birthday"
 							value={user.birthday}
 							onChange={handleChange}
+							onBlur={validateBirthday}
 							required
 						/>
 					</label>
