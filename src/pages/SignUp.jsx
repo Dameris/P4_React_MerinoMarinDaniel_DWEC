@@ -1,6 +1,5 @@
 import React, { useState } from "react"
 import { Navigate } from "react-router"
-import { useUserContext } from "../context/UserContext"
 import logo from "../images/logo.png"
 
 export default function SignUp() {
@@ -53,7 +52,7 @@ export default function SignUp() {
 		const minDate = new Date("1900-01-01")
 		const maxDate = new Date(`${actualYear}-${actualMonth}-${actualDay}`)
 
-		const isValidDate = minDate < birthdayDate > maxDate
+		const isValidDate = birthdayDate >= minDate && birthdayDate <= maxDate
 
 		setFormErrors({ ...formErrors, birthdayError: !isValidDate })
 	}
