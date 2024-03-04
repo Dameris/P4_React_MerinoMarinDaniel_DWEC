@@ -218,6 +218,12 @@ header {
     background-color: #745e5e;
 }
 
+.error__message {
+    display: block;
+    padding-bottom: 1em;
+    color: red;
+}
+
 /* Contact */
 .contactWallpaper {
     background-image: url("../src/images/wallpaper4.png");

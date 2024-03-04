@@ -4,59 +4,95 @@ import { useUserContext } from "../context/UserContext"
 import logo from "../images/logo.png"
 
 export default function LogIn() {
-  const [user, setUser] = useState({
-    email: "",
-    username: "",
-    password: "",
-    birthday: ""
-  })
-  const [error, setError] = useState("")
-  const { setLogged } = useUserContext()
-  const [redirect, setRedirect] = useState(false)
+	const [user, setUser] = useState({
+		email: "",
+		username: "",
+		password: "",
+		birthday: "",
+	})
 
-  // Manejar cambios en el formulario
-  const handleChange = (e) => {
-    const { name, value } = e.target
-    setUser({ ...user, [name]: value })
-  }
+	const [error, setError] = useState("")
+	const { setLogged } = useUserContext()
+	const [redirect, setRedirect] = useState(false)
 
-  // Manejar los datos enviados
-  const handleSubmit = (e) => {
-    e.preventDefault()
+	// Manejar cambios en el formulario
+	const handleChange = (e) => {
+		const { name, value } = e.target
+		setUser({ ...user, [name]: value })
+	}
 
-    const storedUsers = JSON.parse(localStorage.getItem("users")) || []
-    const userExists = storedUsers.find((existingUser) => existingUser.username === user.username && existingUser.password === user.password)
+	// Manejar los datos enviados
+	const handleSubmit = (e) => {
+		e.preventDefault()
 
-    if (!userExists) {
-      setError("Incorrect username or password")
-    } else {
-      localStorage.setItem("loggedUser", user.username)
+		const storedUsers = JSON.parse(localStorage.getItem("users")) || []
+		const userExists = storedUsers.find(
+			(existingUser) =>
+				existingUser.username === user.username && existingUser.password === user.password
+		)
 
-      setLogged(true)
-      setRedirect(true)
-    }
-  }
+		if (!userExists) {
+			setError("Incorrect username or password")
+		} else {
+			localStorage.setItem("loggedUser", user.username)
 
-  if (redirect) {
-    return <Navigate to="/" />
-  }
+			setLogged(true)
+			setRedirect(true)
+		}
+	}
 
-  return (
-    <div className="logInWallpaper">
-      <img className="mainLogo" src={logo} alt="Main Logo" />
-      <form onSubmit={handleSubmit} className="formLogIn">
-        <div className="logInBlock">
-          <label htmlFor="user">
-            <input className="login" type="text" name="username" placeholder="Username" value={user.username} onChange={handleChange} />
-          </label>
-          <label htmlFor="password">
-            <input className="login" type="password" name="password" placeholder="Password" value={user.password} onChange={handleChange} />
-          </label>
-          {error && <p>{error}</p>}
-          <button className="submitLogIn" type="submit" name="submit">Log In</button>
-          <NavLink to="/signup" className="navLink">Don't have an account? Sign Up!</NavLink>
-        </div>
-      </form>
-    </div>
-  )
+	if (redirect) {
+		return <Navigate to="/" />
+	}
+
+	return (
+		<div className="logInWallpaper">
+			<img
+				className="mainLogo"
+				src={logo}
+				alt="Main Logo"
+			/>
+			<form
+				onSubmit={handleSubmit}
+				className="formLogIn"
+			>
+				<div className="logInBlock">
+					<label htmlFor="user">
+						<input
+							className="login"
+							type="text"
+							name="username"
+							placeholder="Username"
+							value={user.username}
+							onChange={handleChange}
+						/>
+					</label>
+					<label htmlFor="password">
+						<input
+							className="login"
+							type="password"
+							name="password"
+							placeholder="Password"
+							value={user.password}
+							onChange={handleChange}
+						/>
+					</label>
+					{error && <p>{error}</p>}
+					<button
+						className="submitLogIn"
+						type="submit"
+						name="submit"
+					>
+						Log In
+					</button>
+					<NavLink
+						to="/signup"
+						className="navLink"
+					>
+						Don't have an account? Sign Up!
+					</NavLink>
+				</div>
+			</form>
+		</div>
+	)
 }

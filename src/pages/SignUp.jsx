@@ -1,5 +1,6 @@
 import React, { useState } from "react"
 import { Navigate } from "react-router"
+import { useUserContext } from "../context/UserContext"
 import logo from "../images/logo.png"
 
 export default function SignUp() {
@@ -44,8 +45,13 @@ export default function SignUp() {
 
 	const validateBirthday = () => {
 		const birthdayDate = new Date(user.birthday)
+		const actualDate = new Date()
+		const actualDay = actualDate.getDate()
+		const actualMonth = actualDate.getMonth() + 1
+		const actualYear = actualDate.getFullYear()
+
 		const minDate = new Date("1900-01-01")
-		const maxDate = today.toISOString().slice(0, 10)
+		const maxDate = new Date(`${actualYear}-${actualMonth}-${actualDay}`)
 
 		const isValidDate = minDate < birthdayDate > maxDate
 
@@ -93,7 +99,7 @@ export default function SignUp() {
 	}
 
 	if (redirect) {
-		return <Navigate to="/logIn" />
+		return <Navigate to="/login" />
 	}
 
 	return (
@@ -121,7 +127,9 @@ export default function SignUp() {
 							required
 						/>
 					</label>
-					{formErrors.emailError && <span>Please enter a valid email address</span>}
+					{formErrors.emailError && (
+						<span className="error__message">Please enter a valid email address</span>
+					)}
 
 					<label htmlFor="user">
 						<input
@@ -136,7 +144,9 @@ export default function SignUp() {
 							required
 						/>
 					</label>
-					{formErrors.usernameError && <span>Please enter a valid username</span>}
+					{formErrors.usernameError && (
+						<span className="error__message">Please enter a valid username</span>
+					)}
 
 					<label htmlFor="password">
 						<input
@@ -151,7 +161,9 @@ export default function SignUp() {
 							required
 						/>
 					</label>
-					{formErrors.passwordError && <span>Please enter a valid password</span>}
+					{formErrors.passwordError && (
+						<span className="error__message">Please enter a valid password</span>
+					)}
 
 					<label htmlFor="birthday">
 						<input
@@ -165,6 +177,9 @@ export default function SignUp() {
 							required
 						/>
 					</label>
+					{formErrors.birthdayError && (
+						<span className="error__message">Please enter a valid date</span>
+					)}
 
 					<label htmlFor="terms">
 						<input
