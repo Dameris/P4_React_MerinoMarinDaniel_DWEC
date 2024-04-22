@@ -1,7 +1,7 @@
 import React, { useState } from "react"
 import { Outlet } from "react-router"
-import Header from "../pages/Header"
-import Footer from "../pages/Footer"
+import Header from "../shared/Header"
+import Footer from "../shared/Footer"
 
 export default function LayoutPublic() {
     return (

@@ -1,4 +1,4 @@
-import logo from "../images/logo.png"
+import Logo from "../assets/images/Logo.png"
 import "../index.css"
 import { FaUserAlt } from "react-icons/fa"
 import { NavLink, Link, useNavigate } from "react-router-dom"
@@ -15,7 +15,7 @@ function header() {
 
     return (
         <header>
-            <Link to="/"><img className="logoHeader" src={logo} alt="Acceso a página de inicio" /></Link>
+            <Link to="/"><img className="logoHeader" src={Logo} alt="Acceso a página de inicio" /></Link>
             <nav className="navHeader">
                 <ul className="btnsHeader">
                     <li><NavLink to="/">Home</NavLink></li>

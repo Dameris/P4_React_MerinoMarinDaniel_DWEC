@@ -1,7 +1,7 @@
 import React, { useState } from "react"
 import { Navigate, NavLink } from "react-router-dom"
 import { useUserContext } from "../context/UserContext"
-import logo from "../images/logo.png"
+import Logo from "../assets/images/Logo.png"
 
 export default function LogIn() {
 	const [user, setUser] = useState({
@@ -49,7 +49,7 @@ export default function LogIn() {
 		<div className="logInWallpaper">
 			<img
 				className="mainLogo"
-				src={logo}
+				src={Logo}
 				alt="Main Logo"
 			/>
 			<form

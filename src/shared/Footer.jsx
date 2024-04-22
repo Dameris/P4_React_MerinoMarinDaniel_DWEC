@@ -1,4 +1,4 @@
-import logo from "../images/logo.png"
+import Logo from "../assets/images/Logo.png"
 import { FaTwitter } from "react-icons/fa"
 import { FaInstagram } from "react-icons/fa"
 import { FaFacebookSquare } from "react-icons/fa"
@@ -7,7 +7,7 @@ function footer() {
     return (
         <footer>
             <div className="mediaIcons">
-                <img src={logo} className="logoFooter" alt="Main Logo" />
+                <img src={Logo} className="logoFooter" alt="Main Logo" />
                 <ul className="iconsFooter">
                     <li><FaTwitter /></li>
                     <li><FaInstagram /></li>

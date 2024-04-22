@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react"
-import pfp from "../images/pfp.jpg"
+import pfp from "../assets/images/pfp.jpg"
 
 const UserProfile = () => {
 	const [user, setUser] = useState({

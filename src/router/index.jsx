@@ -1,10 +1,10 @@
 import { createBrowserRouter } from "react-router-dom"
 import Home from "../pages/Home"
 import LayoutPublic from "../layouts/LayoutPublic"
-import NotFound from "../pages/NotFound"
+import NotFound from "../shared/NotFound"
 import Contact from "../pages/Contact"
 import Login from "../pages/LogIn"
-import Singup from "../pages/SignUp"
+import Signup from "../pages/SignUp"
 import AnimeDetails from "../components/AnimeDetails"
 import LayoutPrivate from "../layouts/LayoutPrivate"
 import FavAnime from "../pages/FavAnime"
@@ -31,7 +31,7 @@ export const router = createBrowserRouter(
         },
         {
           path: "/signup",
-          element: <Singup />
+          element: <Signup />
         },
         {
           path: "/animeDetails/:animeId",

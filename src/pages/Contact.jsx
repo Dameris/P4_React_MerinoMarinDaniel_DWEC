@@ -1,5 +1,5 @@
 import React, { useState } from "react"
-import logo from "../images/logo.png"
+import Logo from "../assets/images/Logo.png"
 
 export default function Contact() {
 	const [user, setUser] = useState({
@@ -83,7 +83,7 @@ export default function Contact() {
 		<div className="contactWallpaper">
 			<img
 				className="mainLogo"
-				src={logo}
+				src={Logo}
 				alt="Main Logo"
 			/>
 			<form

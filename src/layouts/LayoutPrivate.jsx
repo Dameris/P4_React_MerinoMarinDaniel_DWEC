@@ -1,8 +1,8 @@
 import React, { useEffect } from "react"
 import { Outlet, useNavigate } from "react-router"
 import { useUserContext } from "../context/UserContext"
-import Header from "../pages/Header"
-import Footer from "../pages/Footer"
+import Header from "../shared/Header"
+import Footer from "../shared/Footer"
 
 export default function LayoutPrivate() {
 

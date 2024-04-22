@@ -1,6 +1,6 @@
 import React, { useState } from "react"
 import { Navigate } from "react-router"
-import logo from "../images/logo.png"
+import Logo from "../assets/images/Logo.png"
 
 export default function SignUp() {
 	const [user, setUser] = useState({
@@ -105,7 +105,7 @@ export default function SignUp() {
 		<div className="signUpWallpaper">
 			<img
 				className="mainLogo"
-				src={logo}
+				src={Logo}
 				alt="Main Logo"
 			/>
 			<form
