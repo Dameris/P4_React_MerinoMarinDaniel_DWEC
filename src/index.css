@@ -114,7 +114,7 @@ header {
 
 /* Log In */
 .logInWallpaper {
-    background-image: url("../src/images/wallpaper5.png");
+    background-image: url("../src/assets/images/wallpaper5.png");
     background-size: cover;
     background-position: center;
     height: 100vh;
@@ -167,7 +167,7 @@ header {
 
 /* Sign Up */
 .signUpWallpaper {
-    background-image: url("../src/images/wallpaper6.jpg");
+    background-image: url("../src/assets/images/wallpaper6.jpg");
     background-size: cover;
     background-position: center;
     height: 100vh;
@@ -226,7 +226,7 @@ header {
 
 /* Contact */
 .contactWallpaper {
-    background-image: url("../src/images/wallpaper4.png");
+    background-image: url("../src/assets/images/wallpaper4.png");
     background-size: cover;
     background-position: center;
     height: 100vh;
@@ -379,7 +379,7 @@ textarea {
 
 /* User Profile */
 .userProfile {
-    background-image: url("../src/images/wallpaper2.jpg");
+    background-image: url("../src/assets/images/wallpaper2.jpg");
     background-size: cover;
     background-position: center;
     height: 100vh;

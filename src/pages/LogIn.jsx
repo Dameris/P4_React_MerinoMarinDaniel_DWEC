@@ -77,7 +77,7 @@ export default function LogIn() {
 							onChange={handleChange}
 						/>
 					</label>
-					{error && <p>{error}</p>}
+					{error && <p className="error__message">{error}</p>}
 					<button
 						className="submitLogIn"
 						type="submit"

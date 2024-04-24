@@ -161,7 +161,9 @@ export default function SignUp() {
 						/>
 					</label>
 					{formErrors.passwordError && (
-						<span className="error__message">Please enter a valid password</span>
+						<span className="error__message">
+							Please enter a valid password (8+ characters, 1+ uppercase and 1+ special character)
+						</span>
 					)}
 
 					<label htmlFor="birthday">
