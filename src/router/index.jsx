@@ -7,7 +7,7 @@ import Login from "../pages/LogIn"
 import Signup from "../pages/SignUp"
 import AnimeDetails from "../pages/AnimeDetails"
 import LayoutPrivate from "../layouts/LayoutPrivate"
-import FavAnime from "../pages/FavAnime"
+import Favorites from "../pages/Favorites"
 import UserProfile from "../pages/UserProfile"
 
 export const router = createBrowserRouter(
@@ -53,8 +53,8 @@ export const router = createBrowserRouter(
           element: <UserProfile />
         },
         {
-          path: "/favAnime",
-          element: <FavAnime />
+          path: "/favorites",
+          element: <Favorites />
         }
       ]
     }

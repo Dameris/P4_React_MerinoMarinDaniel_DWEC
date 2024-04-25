@@ -1,6 +1,6 @@
 import React, { useState } from "react"
 import Search from "../components/Search"
-import DataJikan from "./DataHome"
+import DataHome from "./DataHome"
 
 const Home = () => {
 	const [searchTerm, setSearchTerm] = useState("")
@@ -17,7 +17,7 @@ const Home = () => {
 			<h1 className="text-center">Anime Orbit</h1>
 			<Search onSearch={handleSearch} />
 			{searchTerm && (
-				<DataJikan
+				<DataHome
 					search={searchTerm}
 					genre={selectedGenre}
 				/>

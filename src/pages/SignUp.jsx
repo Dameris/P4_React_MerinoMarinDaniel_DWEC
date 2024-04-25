@@ -26,7 +26,7 @@ export default function SignUp() {
 	}
 
 	const validateUsername = () => {
-		const namePattern = /^[A-Za-zÀ-ÿ\s]{2,}$/
+		const namePattern = /^[A-Za-zÀ-ÿ0-9\s]{4,}$/
 		setFormErrors({ ...formErrors, usernameError: !namePattern.test(user.username) })
 	}
 
@@ -144,7 +144,7 @@ export default function SignUp() {
 						/>
 					</label>
 					{formErrors.usernameError && (
-						<span className="error__message">Please enter a valid username</span>
+						<span className="error__message">Please enter a valid username (4+ characters)</span>
 					)}
 
 					<label htmlFor="password">

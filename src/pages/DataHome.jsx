@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from "react"
 import { Card } from "react-bootstrap"
 import { Link } from "react-router-dom"
+import { useUserContext } from "../context/UserContext"
 
 const DataHome = ({ search, genre, page, resultsPerPage }) => {
+	const { user, updateUserFavorites } = useUserContext()
 	const [animeResults, setAnimeResults] = useState([])
 	const [totalPages, setTotalPages] = useState(0)
 
@@ -41,6 +43,17 @@ const DataHome = ({ search, genre, page, resultsPerPage }) => {
 			})
 		: []
 
+	const toggleFavorite = (animeId) => {
+		const isFavorite = user?.favorites.includes(animeId)
+		if (isFavorite) {
+			// Remove from favorites
+			updateUserFavorites(user?.favorites.filter((id) => id !== animeId))
+		} else {
+			// Add to favorites
+			updateUserFavorites([...user?.favorites, animeId])
+		}
+	}
+
 	return (
 		<div>
 			<ul className="animeList">
@@ -56,6 +69,14 @@ const DataHome = ({ search, genre, page, resultsPerPage }) => {
 						/>
 						<Card.Body></Card.Body>
 						<Card.Footer className="cardName">
+							<button
+								className="me-2"
+								onClick={() => {
+									toggleFavorite(anime.mal_id)
+								}}
+							>
+								{user?.favorites.includes(anime.mal_id) ? "Remove" : "Add"}
+							</button>
 							<Link to={`/animeDetails/${anime.mal_id}`}>{anime.title}</Link>
 						</Card.Footer>
 					</Card>

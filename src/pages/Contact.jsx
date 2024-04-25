@@ -18,7 +18,7 @@ export default function Contact() {
 
 	// Manejo de errores en el formulario
 	const validateName = () => {
-		const namePattern = /^[A-Za-zÀ-ÿ\s]{2,}$/
+		const namePattern = /^[A-Za-zÀ-ÿ\s]{4,}$/
 		setFormErrors({ ...formErrors, nameError: !namePattern.test(user.name) })
 	}
 
@@ -105,7 +105,7 @@ export default function Contact() {
 						/>
 					</label>
 					{formErrors.nameError && (
-						<span className="error__message">Please enter a valid name</span>
+						<span className="error__message">Please enter a valid name (4+ characters)</span>
 					)}
 
 					<label htmlFor="email">
@@ -154,7 +154,9 @@ export default function Contact() {
 						/>
 					</label>
 					{formErrors.problemError && (
-						<span className="error__message">Please enter a problem description</span>
+						<span className="error__message">
+							Please enter a problem description (8+ characters)
+						</span>
 					)}
 
 					<input

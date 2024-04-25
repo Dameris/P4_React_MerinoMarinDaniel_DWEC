@@ -19,7 +19,7 @@ function header() {
             <nav className="navHeader">
                 <ul className="btnsHeader">
                     <li><NavLink to="/">Home</NavLink></li>
-                    <li><NavLink to="/favAnime">Favorites</NavLink></li>
+                    <li><NavLink to="/favorites">Favorites</NavLink></li>
                     <li><NavLink to="/contact">Contact</NavLink></li>
                 </ul>
             </nav>
