@@ -47,7 +47,7 @@ header {
     width: 100%;
     font-size: 25px;
     justify-content: space-between;
-    margin-right: 10vw;
+    margin-right: 1vw;
 
     li {
         list-style: none;
@@ -70,7 +70,6 @@ header {
     display: flex;
     color: white;
     justify-content: space-around;
-    width: 10%;
     font-size: 30px;
 
     a {

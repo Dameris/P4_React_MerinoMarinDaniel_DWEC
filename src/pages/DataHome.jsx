@@ -4,11 +4,10 @@ import { Link } from "react-router-dom"
 import { useUserContext } from "../context/UserContext"
 
 const DataHome = ({ search, genre, page, resultsPerPage }) => {
-	const { user, updateUserFavorites } = useUserContext()
+	const { user, updateUserFavorites, logged } = useUserContext()
 	const [animeResults, setAnimeResults] = useState([])
 	const [totalPages, setTotalPages] = useState(0)
 
-	// Llamada a "API Jikan" para obtener los animes
 	useEffect(() => {
 		const getAnimeData = async () => {
 			try {
@@ -23,16 +22,13 @@ const DataHome = ({ search, genre, page, resultsPerPage }) => {
 			}
 		}
 
-		// Añadir un retraso de 1 segundo entre solicitudes
 		const timeoutId = setTimeout(() => {
 			getAnimeData()
 		}, 1000)
 
-		// Limpiar el temporizador para evitar problemas
 		return () => clearTimeout(timeoutId)
 	}, [search, genre, page, resultsPerPage])
 
-	// Filtrar animes por género
 	const filteredAnimeResults = animeResults
 		? animeResults.filter((anime) => {
 				if (!genre) {
@@ -46,10 +42,8 @@ const DataHome = ({ search, genre, page, resultsPerPage }) => {
 	const toggleFavorite = (animeId) => {
 		const isFavorite = user?.favorites.includes(animeId)
 		if (isFavorite) {
-			// Remove from favorites
 			updateUserFavorites(user?.favorites.filter((id) => id !== animeId))
 		} else {
-			// Add to favorites
 			updateUserFavorites([...user?.favorites, animeId])
 		}
 	}
@@ -69,14 +63,14 @@ const DataHome = ({ search, genre, page, resultsPerPage }) => {
 						/>
 						<Card.Body></Card.Body>
 						<Card.Footer className="cardName">
-							<button
-								className="me-2"
-								onClick={() => {
-									toggleFavorite(anime.mal_id)
-								}}
-							>
-								{user?.favorites.includes(anime.mal_id) ? "Remove" : "Add"}
-							</button>
+							{logged && (
+								<button
+									className="me-2"
+									onClick={() => toggleFavorite(anime.mal_id)}
+								>
+									{user?.favorites.includes(anime.mal_id) ? "Remove" : "Add"}
+								</button>
+							)}
 							<Link to={`/animeDetails/${anime.mal_id}`}>{anime.title}</Link>
 						</Card.Footer>
 					</Card>
