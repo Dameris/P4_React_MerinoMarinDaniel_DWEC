@@ -35,7 +35,7 @@ function Header() {
 					</li>
 				</ul>
 			</nav>
-			<ul className="iconsHeader">
+			<div className="iconsHeader">
 				{logged ? (
 					<ul className="btnsHeader">
 						<li className="liLogged">
@@ -44,13 +44,15 @@ function Header() {
 						<li onClick={logout}>Logout</li>
 					</ul>
 				) : (
-					<li>
-						<NavLink to="/login">
-							<FaUserAlt />
-						</NavLink>
-					</li>
+					<ul className="btnsHeader">
+						<li>
+							<NavLink to="/login">
+								<FaUserAlt />
+							</NavLink>
+						</li>
+					</ul>
 				)}
-			</ul>
+			</div>
 		</header>
 	)
 }
