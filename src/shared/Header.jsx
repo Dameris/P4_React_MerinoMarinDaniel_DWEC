@@ -10,6 +10,7 @@ function Header() {
 
 	const logout = () => {
 		setLogged(false)
+		localStorage.removeItem("loggedUser")
 		navigate("/")
 	}
 

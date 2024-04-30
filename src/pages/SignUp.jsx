@@ -1,13 +1,16 @@
 import React, { useState } from "react"
 import { Navigate } from "react-router"
+import { useUserContext } from "../context/UserContext"
 import Logo from "../assets/images/Logo.png"
 
 export default function SignUp() {
+	const { addUser } = useUserContext()
 	const [user, setUser] = useState({
 		email: "",
 		username: "",
 		password: "",
 		birthday: "",
+		favorites: [],
 	})
 
 	const [formErrors, setFormErrors] = useState({
@@ -78,22 +81,32 @@ export default function SignUp() {
 		} else {
 			alert("Form submitted successfully!")
 
-			const storedUsers = localStorage.getItem("users")
-			const users = storedUsers ? JSON.parse(storedUsers) : []
-			const newUser = { ...user }
-			const userExists = users.some((existingUser) => existingUser.username === newUser.username)
-			const emailExist = users.some((existingEmail) => existingEmail.email === newUser.email)
+			// Agregar el nuevo usuario a IndexedDB
+			const request = window.indexedDB.open("userData", 1)
 
-			if (userExists) {
-				alert("Username already exists")
-			} else if (emailExist) {
-				alert("Email already exists")
-			} else {
-				users.push(newUser)
-				localStorage.setItem("users", JSON.stringify(users))
-
-				setRedirect(true)
+			request.onerror = (event) => {
+				console.error("Error opening IndexedDB:", event.target.error)
 			}
+
+			request.onsuccess = (event) => {
+				const db = event.target.result
+				const transaction = db.transaction("users", "readwrite")
+				const objectStore = transaction.objectStore("users")
+
+				const addUserRequest = objectStore.add(user)
+
+				addUserRequest.onsuccess = (event) => {
+					console.log("User added successfully to IndexedDB")
+					addUser(user)
+					setRedirect(true)
+				}
+
+				addUserRequest.onerror = (event) => {
+					console.error("Error adding user to IndexedDB:", event.target.error)
+				}
+			}
+
+			setRedirect(true)
 		}
 	}
 

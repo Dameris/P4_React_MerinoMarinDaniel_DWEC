@@ -6,7 +6,7 @@ const AnimeDetails = () => {
 	const { animeId } = useParams()
 	const [animeResults, setAnimeResults] = useState({ data: {} })
 	const [animeImg, setAnimeImg] = useState("")
-	const { logged, user, updateUserFavorites } = useUserContext()
+	const { logged, user, updateFavorites } = useUserContext()
 	const navigate = useNavigate()
 
 	// Llamada a "Jikan API" para obtener la info completa de los animmes a partir del ID
@@ -25,19 +25,14 @@ const AnimeDetails = () => {
 		getAnimeData()
 	}, [animeId])
 
-	useEffect(() => {
-		const savedFavorites = user && user.favorites ? user.favorites : []
-		updateUserFavorites(savedFavorites)
-	}, [user, updateUserFavorites])
-
 	const addToFavorites = (animeId) => {
 		if (!user?.favorites.includes(animeId)) {
-			updateUserFavorites([...user.favorites, animeId])
+			updateFavorites([...user.favorites, animeId])
 		}
 	}
 
 	const removeFromFavorites = (animeId) => {
-		updateUserFavorites(user?.favorites.filter((id) => id !== animeId))
+		updateFavorites(user?.favorites.filter((id) => id !== animeId))
 	}
 
 	const anime = animeResults.data

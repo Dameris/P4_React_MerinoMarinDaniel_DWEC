@@ -11,11 +11,31 @@ const UserProfile = () => {
 	useEffect(() => {
 		const username = localStorage.getItem("loggedUser")
 
-		const storedUsers = JSON.parse(localStorage.getItem("users")) || []
-		const currentUser = storedUsers.find((existingUser) => existingUser.username === username)
+		const request = window.indexedDB.open("userData", 1)
 
-		if (currentUser) {
-			setUser(currentUser)
+		request.onerror = (event) => {
+			console.error("Error opening IndexedDB:", event.target.error)
+		}
+
+		request.onsuccess = (event) => {
+			const db = event.target.result
+			const transaction = db.transaction("users", "readonly")
+			const objectStore = transaction.objectStore("users")
+			const getUserRequest = objectStore.index("username").get(username)
+
+			getUserRequest.onsuccess = (event) => {
+				const userData = event.target.result
+
+				if (userData) {
+					setUser(userData)
+				} else {
+					console.error("User not found in IndexedDB")
+				}
+			}
+
+			getUserRequest.onerror = (event) => {
+				console.error("Error retrieving user from IndexedDB:", event.target.error)
+			}
 		}
 	}, [])
 
@@ -34,12 +54,8 @@ const UserProfile = () => {
 					alt="Profile"
 				/>
 				<div className="userInfoBox">
-					<p>
-						Username: {user.username} <br />
-					</p>
-					<p>
-						Email: {user.email} <br />
-					</p>
+					<p>Username: {user.username} </p>
+					<p>Email: {user.email} </p>
 					<p>Birthday: {formatDate(user.birthday)}</p>
 				</div>
 			</div>

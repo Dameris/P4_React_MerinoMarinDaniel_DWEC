@@ -4,9 +4,8 @@ import { Link } from "react-router-dom"
 import { useUserContext } from "../context/UserContext"
 
 const Favorites = () => {
-	const { user } = useUserContext()
+	const { user, updateFavorites } = useUserContext()
 	const [favoriteAnimeDetails, setFavoriteAnimeDetails] = useState([])
-	const { updateUserFavorites } = useUserContext()
 
 	// Llamada a la API para obtener los datos de los animes y
 	// para poder agregar los animes favoritos a la lista de favoritos
@@ -25,36 +24,35 @@ const Favorites = () => {
 		fetchFavoriteAnimeDetails()
 
 		const savedFavorites = user && user.favorites ? user.favorites : []
-		updateUserFavorites(savedFavorites)
-	}, [user.favorites, updateUserFavorites])
+		updateFavorites(savedFavorites)
+	}, [user.favorites, updateFavorites])
 
 	const removeFromFavorites = (animeId) => {
-		updateUserFavorites(user?.favorites.filter((id) => id !== animeId))
+		const updatedFavorites = user.favorites.filter((id) => id !== animeId)
+		updateFavorites(updatedFavorites)
 	}
 
 	return (
 		<div className="animeList">
-			{favoriteAnimeDetails.map((anime) => (
+			{favoriteAnimeDetails.map((animeId) => (
 				<Card
-					key={anime.mal_id}
+					key={animeId.mal_id}
 					className="animeCard"
 				>
 					<Card.Img
 						variant="top"
-						src={anime.images?.jpg?.image_url}
+						src={animeId.images?.jpg?.image_url}
 						className="animeImg"
 					/>
 					<Card.Body></Card.Body>
 					<Card.Footer className="cardName">
 						<button
 							className="me-2"
-							onClick={() => {
-								removeFromFavorites(anime.mal_id)
-							}}
+							onClick={() => removeFromFavorites(animeId)}
 						>
 							Remove
 						</button>
-						<Link to={`/animeDetails/${anime.mal_id}`}>{anime.title}</Link>
+						<Link to={`/animeDetails/${animeId.mal_id}`}>{animeId.title}</Link>
 					</Card.Footer>
 				</Card>
 			))}

@@ -4,7 +4,7 @@ import { Link } from "react-router-dom"
 import { useUserContext } from "../context/UserContext"
 
 const DataHome = ({ search, genre, page, resultsPerPage }) => {
-	const { user, updateUserFavorites, logged } = useUserContext()
+	const { user, updateFavorites, logged } = useUserContext()
 	const [animeResults, setAnimeResults] = useState([])
 	const [totalPages, setTotalPages] = useState(0)
 
@@ -29,36 +29,31 @@ const DataHome = ({ search, genre, page, resultsPerPage }) => {
 		return () => clearTimeout(timeoutId)
 	}, [search, genre, page, resultsPerPage])
 
-	const filteredAnimeResults = animeResults
-		? animeResults.filter((anime) => {
-				if (!genre) {
-					return true
-				} else {
-					return anime.genres.some((animeGenre) => genre === animeGenre.name)
-				}
-			})
-		: []
-
 	const toggleFavorite = (animeId) => {
-		const isFavorite = user?.favorites.includes(animeId)
-		if (isFavorite) {
-			updateUserFavorites(user?.favorites.filter((id) => id !== animeId))
-		} else {
-			updateUserFavorites([...user?.favorites, animeId])
+		if (!user) {
+			console.error("Usuario no definido.")
+			return
 		}
+
+		const isFavorite = user.favorites?.includes(animeId)
+		const updatedFavorites = isFavorite
+			? user.favorites.filter((id) => id !== animeId)
+			: [...user.favorites, animeId]
+
+		updateFavorites(updatedFavorites)
 	}
 
 	return (
 		<div>
 			<ul className="animeList">
-				{filteredAnimeResults.map((anime) => (
+				{animeResults.map((anime) => (
 					<Card
 						key={anime.mal_id}
 						className="animeCard"
 					>
 						<Card.Img
 							variant="top"
-							src={anime.images.jpg.image_url}
+							src={anime.images?.jpg?.image_url}
 							className="animeImg"
 						/>
 						<Card.Body></Card.Body>
@@ -68,7 +63,9 @@ const DataHome = ({ search, genre, page, resultsPerPage }) => {
 									className="me-2"
 									onClick={() => toggleFavorite(anime.mal_id)}
 								>
-									{user?.favorites.includes(anime.mal_id) ? "Remove" : "Add"}
+									{user && user.favorites && user.favorites.includes(anime.mal_id)
+										? "Remove"
+										: "Add"}
 								</button>
 							)}
 							<Link to={`/animeDetails/${anime.mal_id}`}>{anime.title}</Link>

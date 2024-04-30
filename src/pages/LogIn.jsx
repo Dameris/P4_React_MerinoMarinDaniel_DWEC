@@ -5,14 +5,12 @@ import Logo from "../assets/images/Logo.png"
 
 export default function LogIn() {
 	const [user, setUser] = useState({
-		email: "",
 		username: "",
 		password: "",
-		birthday: "",
 	})
 
 	const [error, setError] = useState("")
-	const { setLogged } = useUserContext()
+	const { setLogged, addUser } = useUserContext()
 	const [redirect, setRedirect] = useState(false)
 
 	// Manejar cambios en el formulario
@@ -25,19 +23,35 @@ export default function LogIn() {
 	const handleSubmit = (e) => {
 		e.preventDefault()
 
-		const storedUsers = JSON.parse(localStorage.getItem("users")) || []
-		const userExists = storedUsers.find(
-			(existingUser) =>
-				existingUser.username === user.username && existingUser.password === user.password
-		)
+		const request = window.indexedDB.open("userData", 1)
 
-		if (!userExists) {
-			setError("Incorrect username or password")
-		} else {
-			localStorage.setItem("loggedUser", user.username)
+		request.onerror = (event) => {
+			console.error("Error opening IndexedDB:", event.target.error)
+		}
 
-			setLogged(true)
-			setRedirect(true)
+		request.onsuccess = (event) => {
+			const db = event.target.result
+			const transaction = db.transaction("users", "readonly")
+			const objectStore = transaction.objectStore("users")
+			const getUserRequest = objectStore.index("username").get(user.username)
+
+			getUserRequest.onsuccess = (event) => {
+				const userData = event.target.result
+
+				if (userData && userData.password === user.password) {
+					localStorage.setItem("loggedUser", user.username)
+					setLogged(true)
+					addUser(userData)
+					setRedirect(true)
+				} else {
+					setError("Incorrect username or password")
+				}
+			}
+
+			getUserRequest.onerror = (event) => {
+				console.error("Error retrieving user from IndexedDB:", event.target.error)
+				setError("Error retrieving user data")
+			}
 		}
 	}
 
