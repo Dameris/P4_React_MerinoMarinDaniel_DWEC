@@ -18,8 +18,7 @@ const initializeDatabase = () => {
 
 		request.onupgradeneeded = (event) => {
 			const db = event.target.result
-			const objectStore = db.createObjectStore("users", { keyPath: "username" })
-			objectStore.createIndex("username", "username", { unique: true })
+			db.createObjectStore("users", { keyPath: "username" })
 		}
 	})
 }
@@ -33,52 +32,33 @@ const UserProvider = ({ children }) => {
 	const [logged, setLogged] = useState(false)
 
 	useEffect(() => {
-		initializeDatabase()
-			.then((db) => {
-				const transaction = db.transaction("users", "readwrite")
-				const objectStore = transaction.objectStore("users")
-				const getUserRequest = objectStore.get(localStorage.getItem("loggedUser"))
+		const loggedInUser = localStorage.getItem("loggedUser")
+		if (loggedInUser) {
+			initializeDatabase()
+				.then((db) => {
+					const transaction = db.transaction("users", "readwrite")
+					const objectStore = transaction.objectStore("users")
+					const getUserRequest = objectStore.get(loggedInUser)
 
-				getUserRequest.onsuccess = (event) => {
-					setUser(event.target.result)
-					setLogged(true)
-				}
+					getUserRequest.onsuccess = (event) => {
+						setUser(event.target.result)
+						setLogged(true)
+					}
 
-				getUserRequest.onerror = (event) => {
-					console.error("Error retrieving user:", event.target.error)
-				}
-			})
-			.catch((error) => {
-				console.error("Error initializing IndexedDB:", error)
-			})
+					getUserRequest.onerror = (event) => {
+						console.error("Error retrieving user:", event.target.error)
+					}
+				})
+				.catch((error) => {
+					console.error("Error initializing IndexedDB:", error)
+				})
+		}
 	}, [])
 
 	const addUser = (userData) => {
 		setUser(userData)
 		setLogged(true)
 		localStorage.setItem("loggedUser", userData.username)
-
-		// Cargar favoritos del usuario desde IndexedDB
-		initializeDatabase()
-			.then((db) => {
-				const transaction = db.transaction("users", "readwrite")
-				const objectStore = transaction.objectStore("users")
-				const getUserRequest = objectStore.get(userData.username)
-
-				getUserRequest.onsuccess = (event) => {
-					const userWithFavorites = event.target.result
-					if (userWithFavorites) {
-						setUser(userWithFavorites)
-					}
-				}
-
-				getUserRequest.onerror = (event) => {
-					console.error("Error retrieving user with favorites:", event.target.error)
-				}
-			})
-			.catch((error) => {
-				console.error("Error initializing IndexedDB:", error)
-			})
 	}
 
 	const updateFavorites = (newFavorites) => {
@@ -87,19 +67,18 @@ const UserProvider = ({ children }) => {
 			favorites: newFavorites,
 		}))
 
-		initializeDatabase()
-			.then((db) => {
-				const transaction = db.transaction("users", "readwrite")
-				const objectStore = transaction.objectStore("users")
-				const updateUserRequest = objectStore.put(user)
-
-				updateUserRequest.onerror = (event) => {
-					console.error("Error updating user:", event.target.error)
-				}
-			})
-			.catch((error) => {
-				console.error("Error initializing IndexedDB:", error)
-			})
+		const loggedInUser = localStorage.getItem("loggedUser")
+		if (loggedInUser) {
+			initializeDatabase()
+				.then((db) => {
+					const transaction = db.transaction("users", "readwrite")
+					const objectStore = transaction.objectStore("users")
+					objectStore.put(user)
+				})
+				.catch((error) => {
+					console.error("Error updating user:", error)
+				})
+		}
 	}
 
 	return (

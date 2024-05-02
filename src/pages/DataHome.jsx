@@ -9,22 +9,20 @@ const DataHome = ({ search, genre, page, resultsPerPage }) => {
 	const [totalPages, setTotalPages] = useState(0)
 
 	useEffect(() => {
-		const getAnimeData = async () => {
+		const fetchAnimeData = async () => {
 			try {
-				const data = await fetch(
+				const response = await fetch(
 					`https://api.jikan.moe/v4/anime?q=${search}&sfw&page=${page}&per_page=${resultsPerPage}`
 				)
-				const result = await data.json()
-				setAnimeResults(result.data)
-				setTotalPages(result.pagination.items.total)
+				const { data, pagination } = await response.json()
+				setAnimeResults(data)
+				setTotalPages(pagination.items.total)
 			} catch (error) {
 				console.error("Error fetching anime data from Jikan API", error)
 			}
 		}
 
-		const timeoutId = setTimeout(() => {
-			getAnimeData()
-		}, 1000)
+		const timeoutId = setTimeout(fetchAnimeData, 1000)
 
 		return () => clearTimeout(timeoutId)
 	}, [search, genre, page, resultsPerPage])
@@ -35,18 +33,21 @@ const DataHome = ({ search, genre, page, resultsPerPage }) => {
 			return
 		}
 
-		const isFavorite = user.favorites?.includes(animeId)
-		const updatedFavorites = isFavorite
+		const updatedFavorites = user.favorites?.includes(animeId)
 			? user.favorites.filter((id) => id !== animeId)
 			: [...user.favorites, animeId]
 
 		updateFavorites(updatedFavorites)
 	}
 
+	const filteredAnimeResults = genre
+		? animeResults.filter((anime) => anime.genres.some((animeGenre) => genre === animeGenre.name))
+		: animeResults
+
 	return (
 		<div>
 			<ul className="animeList">
-				{animeResults.map((anime) => (
+				{filteredAnimeResults.map((anime) => (
 					<Card
 						key={anime.mal_id}
 						className="animeCard"

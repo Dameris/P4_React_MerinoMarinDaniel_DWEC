@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react"
-import DataJikan from "../pages/DataHome"
+import DataHome from "../pages/DataHome"
 
 const Search = ({ onSearch }) => {
 	const [searchInput, setSearchInput] = useState("")
@@ -75,7 +75,7 @@ const Search = ({ onSearch }) => {
 					Search
 				</button>
 			</form>
-			<DataJikan
+			<DataHome
 				search={searchInput}
 				genre={selectedGenre}
 				page={currentPage}
