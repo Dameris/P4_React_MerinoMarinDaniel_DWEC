@@ -2,27 +2,6 @@ import React, { createContext, useContext, useEffect, useState } from "react"
 
 const UserContext = createContext()
 
-const initializeDatabase = () => {
-	return new Promise((resolve, reject) => {
-		const request = window.indexedDB.open("userData", 1)
-
-		request.onerror = (event) => {
-			console.error("Error opening IndexedDB:", event.target.error)
-			reject(event.target.error)
-		}
-
-		request.onsuccess = (event) => {
-			const db = event.target.result
-			resolve(db)
-		}
-
-		request.onupgradeneeded = (event) => {
-			const db = event.target.result
-			db.createObjectStore("users", { keyPath: "username" })
-		}
-	})
-}
-
 const UserProvider = ({ children }) => {
 	const [user, setUser] = useState({
 		username: "",
@@ -30,29 +9,45 @@ const UserProvider = ({ children }) => {
 		favorites: [],
 	})
 	const [logged, setLogged] = useState(false)
+	const [dbInitialized, setDbInitialized] = useState(false)
 
 	useEffect(() => {
-		const loggedInUser = localStorage.getItem("loggedUser")
-		if (loggedInUser) {
-			initializeDatabase()
-				.then((db) => {
-					const transaction = db.transaction("users", "readwrite")
-					const objectStore = transaction.objectStore("users")
-					const getUserRequest = objectStore.get(loggedInUser)
+		const initializeDatabase = async () => {
+			try {
+				const request = await window.indexedDB.open("userData", 1)
+				request.onerror = (event) => {
+					console.error("Error opening IndexedDB:", event.target.error)
+					throw new Error(event.target.error)
+				}
+				request.onsuccess = (event) => {
+					const db = event.target.result
+					setDbInitialized(true)
+					const loggedInUser = localStorage.getItem("loggedUser")
+					if (loggedInUser) {
+						const transaction = db.transaction("users", "readwrite")
+						const objectStore = transaction.objectStore("users")
+						const getUserRequest = objectStore.get(loggedInUser)
 
-					getUserRequest.onsuccess = (event) => {
-						setUser(event.target.result)
-						setLogged(true)
-					}
+						getUserRequest.onsuccess = (event) => {
+							setUser(event.target.result)
+							setLogged(true)
+						}
 
-					getUserRequest.onerror = (event) => {
-						console.error("Error retrieving user:", event.target.error)
+						getUserRequest.onerror = (event) => {
+							console.error("Error retrieving user:", event.target.error)
+						}
 					}
-				})
-				.catch((error) => {
-					console.error("Error initializing IndexedDB:", error)
-				})
+				}
+				request.onupgradeneeded = (event) => {
+					const db = event.target.result
+					db.createObjectStore("users", { keyPath: "username" })
+				}
+			} catch (error) {
+				console.error("Error initializing IndexedDB:", error)
+			}
 		}
+
+		initializeDatabase()
 	}, [])
 
 	const addUser = (userData) => {
@@ -68,17 +63,22 @@ const UserProvider = ({ children }) => {
 		}))
 
 		const loggedInUser = localStorage.getItem("loggedUser")
-		if (loggedInUser) {
-			initializeDatabase()
-				.then((db) => {
-					const transaction = db.transaction("users", "readwrite")
-					const objectStore = transaction.objectStore("users")
-					objectStore.put(user)
-				})
-				.catch((error) => {
-					console.error("Error updating user:", error)
-				})
+		if (loggedInUser && dbInitialized) {
+			const request = window.indexedDB.open("userData", 1)
+			request.onsuccess = (event) => {
+				const db = event.target.result
+				const transaction = db.transaction("users", "readwrite")
+				const objectStore = transaction.objectStore("users")
+				objectStore.put(user)
+			}
+			request.onerror = (event) => {
+				console.error("Error opening IndexedDB:", event.target.error)
+			}
 		}
+	}
+
+	if (!dbInitialized) {
+		return <div>Loading...</div>
 	}
 
 	return (
