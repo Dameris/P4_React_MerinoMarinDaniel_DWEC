@@ -92,7 +92,6 @@ export default function SignUp() {
 				const db = event.target.result
 				const transaction = db.transaction("users", "readwrite")
 				const objectStore = transaction.objectStore("users")
-
 				const addUserRequest = objectStore.add(user)
 
 				addUserRequest.onsuccess = (event) => {

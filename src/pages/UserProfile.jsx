@@ -21,7 +21,7 @@ const UserProfile = () => {
 			const db = event.target.result
 			const transaction = db.transaction("users", "readonly")
 			const objectStore = transaction.objectStore("users")
-			const getUserRequest = objectStore.index("username").get(username)
+			const getUserRequest = objectStore.get(username)
 
 			getUserRequest.onsuccess = (event) => {
 				const userData = event.target.result

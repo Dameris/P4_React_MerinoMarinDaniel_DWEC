@@ -33,7 +33,7 @@ export default function LogIn() {
 			const db = event.target.result
 			const transaction = db.transaction("users", "readonly")
 			const objectStore = transaction.objectStore("users")
-			const getUserRequest = objectStore.index("username").get(user.username)
+			const getUserRequest = objectStore.get(user.username)
 
 			getUserRequest.onsuccess = (event) => {
 				const userData = event.target.result
@@ -75,6 +75,8 @@ export default function LogIn() {
 						<input
 							className="login"
 							type="text"
+							autoComplete="Username"
+							id="user"
 							name="username"
 							placeholder="Username"
 							value={user.username}
@@ -85,6 +87,7 @@ export default function LogIn() {
 						<input
 							className="login"
 							type="password"
+							id="password"
 							name="password"
 							placeholder="Password"
 							value={user.password}
