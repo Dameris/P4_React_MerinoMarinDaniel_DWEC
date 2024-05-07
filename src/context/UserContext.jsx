@@ -14,7 +14,7 @@ const UserProvider = ({ children }) => {
 	useEffect(() => {
 		const initializeDatabase = async () => {
 			try {
-				const request = await window.indexedDB.open("userData", 1)
+				const request = window.indexedDB.open("userData", 1)
 				request.onerror = (event) => {
 					console.error("Error opening IndexedDB:", event.target.error)
 					throw new Error(event.target.error)
