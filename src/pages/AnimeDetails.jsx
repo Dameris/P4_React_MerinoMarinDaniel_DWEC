@@ -25,34 +25,34 @@ const AnimeDetails = () => {
 		getAnimeData()
 	}, [animeId])
 
+	// Función para agregar un anime a favoritos
 	const addToFavorites = (animeId) => {
 		if (!user?.favorites.includes(animeId)) {
 			updateFavorites([...user.favorites, animeId])
 		}
 	}
 
+	// Función para eliminar un anime de favoritos
 	const removeFromFavorites = (animeId) => {
 		updateFavorites(user?.favorites.filter((id) => id !== animeId))
 	}
 
-	const anime = animeResults.data
-
-	if (!anime) {
+	if (!animeResults.data) {
 		return <div>No anime found</div>
 	}
 
 	return (
 		<div className="detailsDiv">
-			<h1 className="text-center">{anime.title}</h1>
-			<h2 className="text-center">({anime.title_japanese})</h2>
+			<h1 className="text-center">{animeResults.data.title}</h1>
+			<h2 className="text-center">({animeResults.data.title_japanese})</h2>
 			<div className="imgSynopsis">
 				{animeImg && (
 					<img
 						src={animeImg}
-						alt={anime.title}
+						alt={animeResults.data.title}
 					/>
 				)}
-				{anime.synopsis}
+				{animeResults.data.synopsis}
 			</div>
 
 			<p className="detailsP">
@@ -61,20 +61,22 @@ const AnimeDetails = () => {
 						if (!logged) {
 							navigate("/login")
 						} else if (user && user.favorites) {
-							const isFavorite = user.favorites.includes(anime.mal_id)
-							isFavorite ? removeFromFavorites(anime.mal_id) : addToFavorites(anime.mal_id)
+							const isFavorite = user.favorites.includes(animeResults.data.mal_id)
+							isFavorite
+								? removeFromFavorites(animeResults.data.mal_id)
+								: addToFavorites(animeResults.data.mal_id)
 						}
 					}}
 				>
-					{user && user.favorites && user.favorites.includes(anime.mal_id)
+					{user && user.favorites && user.favorites.includes(animeResults.data.mal_id)
 						? "Remove from favorites"
 						: "Add to favorites"}
 				</button>
 				<br />
-				Type: {anime.type} <br />
-				Source: {anime.source} <br />
-				Episodes: {anime.episodes} <br />
-				Status: {anime.status}
+				Type: {animeResults.data.type} <br />
+				Source: {animeResults.data.source} <br />
+				Episodes: {animeResults.data.episodes} <br />
+				Status: {animeResults.data.status}
 			</p>
 		</div>
 	)

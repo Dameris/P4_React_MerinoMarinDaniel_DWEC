@@ -7,9 +7,14 @@ const Favorites = () => {
 	const { user, updateFavorites } = useUserContext()
 	const [favoriteAnimeDetails, setFavoriteAnimeDetails] = useState([])
 
-	// Llamada a la API para obtener los datos de los animes y
-	// para poder agregar los animes favoritos a la lista de favoritos
+	// Función para eliminar un anime de la lista de favoritos
+	const removeFromFavorites = (animeId) => {
+		const updatedFavorites = user.favorites.filter((id) => id !== animeId)
+		updateFavorites(updatedFavorites)
+	}
+
 	useEffect(() => {
+		// Llamada a la API para obtener los detalles de los animes favoritos
 		const fetchFavoriteAnimeDetails = async () => {
 			const detailsPromises = user.favorites.map(async (animeId) => {
 				const response = await fetch(`https://api.jikan.moe/v4/anime/${animeId}/full`)
@@ -22,37 +27,29 @@ const Favorites = () => {
 		}
 
 		fetchFavoriteAnimeDetails()
-
-		const savedFavorites = user && user.favorites ? user.favorites : []
-		updateFavorites(savedFavorites)
 	}, [user.favorites, updateFavorites])
-
-	const removeFromFavorites = (animeId) => {
-		const updatedFavorites = user.favorites.filter((id) => id !== animeId)
-		updateFavorites(updatedFavorites)
-	}
 
 	return (
 		<div className="animeList">
-			{favoriteAnimeDetails.map((animeId) => (
+			{favoriteAnimeDetails.map((anime) => (
 				<Card
-					key={animeId.mal_id}
+					key={anime.mal_id}
 					className="animeCard"
 				>
 					<Card.Img
 						variant="top"
-						src={animeId.images?.jpg?.image_url}
+						src={anime.images?.jpg?.image_url}
 						className="animeImg"
 					/>
 					<Card.Body></Card.Body>
 					<Card.Footer className="cardName">
 						<button
 							className="me-2"
-							onClick={() => removeFromFavorites(animeId)}
+							onClick={() => removeFromFavorites(anime.mal_id)}
 						>
 							Remove
 						</button>
-						<Link to={`/animeDetails/${animeId.mal_id}`}>{animeId.title}</Link>
+						<Link to={`/animeDetails/${anime.mal_id}`}>{anime.title}</Link>
 					</Card.Footer>
 				</Card>
 			))}

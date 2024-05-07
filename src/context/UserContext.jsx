@@ -11,6 +11,7 @@ const UserProvider = ({ children }) => {
 	const [logged, setLogged] = useState(false)
 	const [dbInitialized, setDbInitialized] = useState(false)
 
+	// useEffect para inicializar la base de datos con IndexedDB
 	useEffect(() => {
 		const initializeDatabase = async () => {
 			try {
@@ -50,12 +51,14 @@ const UserProvider = ({ children }) => {
 		initializeDatabase()
 	}, [])
 
+	// Función para agregar un usuario y establecer el inicio de sesión
 	const addUser = (userData) => {
 		setUser(userData)
 		setLogged(true)
 		localStorage.setItem("loggedUser", userData.username)
 	}
 
+	// Función para actualizar los favoritos del usuario
 	const updateFavorites = (newFavorites) => {
 		setUser((prevUser) => ({
 			...prevUser,

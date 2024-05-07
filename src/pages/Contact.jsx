@@ -16,7 +16,7 @@ export default function Contact() {
 		problemError: false,
 	})
 
-	// Manejo de errores en el formulario
+	// Funciones de validación para cada campo del formulario
 	const validateName = () => {
 		const namePattern = /^[A-Za-zÀ-ÿ\s]{4,}$/
 		setFormErrors({ ...formErrors, nameError: !namePattern.test(user.name) })

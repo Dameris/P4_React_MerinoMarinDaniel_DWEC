@@ -8,6 +8,7 @@ const UserProfile = () => {
 		birthday: "",
 	})
 
+	// useEffect para obtener los datos del usuario al cargar el componente
 	useEffect(() => {
 		const username = localStorage.getItem("loggedUser")
 

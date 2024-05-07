@@ -8,6 +8,7 @@ function Header() {
 	const { logged, setLogged } = useUserContext()
 	const navigate = useNavigate()
 
+	// Función para cerrar sesión
 	const logout = () => {
 		setLogged(false)
 		localStorage.removeItem("loggedUser")

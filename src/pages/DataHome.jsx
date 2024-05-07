@@ -11,6 +11,7 @@ const DataHome = ({ search, genre, page, resultsPerPage }) => {
 	useEffect(() => {
 		const fetchAnimeData = async () => {
 			try {
+				// Llamada a la API Jikan para obtener los datos del anime
 				const response = await fetch(
 					`https://api.jikan.moe/v4/anime?q=${search}&sfw&page=${page}&per_page=${resultsPerPage}`
 				)
@@ -22,17 +23,20 @@ const DataHome = ({ search, genre, page, resultsPerPage }) => {
 			}
 		}
 
+		// Retrasar la llamada para evitar la sobrecarga del servidor
 		const timeoutId = setTimeout(fetchAnimeData, 1000)
 
 		return () => clearTimeout(timeoutId)
 	}, [search, genre, page, resultsPerPage])
 
+	// Función para agregar o eliminar un anime de los favoritos
 	const toggleFavorite = (animeId) => {
 		if (!user) {
-			console.error("Usuario no definido.")
+			console.error("User not defined.")
 			return
 		}
 
+		// Actualizar la lista de favoritos del usuario
 		const updatedFavorites = user.favorites?.includes(animeId)
 			? user.favorites.filter((id) => id !== animeId)
 			: [...user.favorites, animeId]
@@ -40,6 +44,7 @@ const DataHome = ({ search, genre, page, resultsPerPage }) => {
 		updateFavorites(updatedFavorites)
 	}
 
+	// Filtrar los resultados del anime por género si se especifica un género
 	const filteredAnimeResults = genre
 		? animeResults.filter((anime) => anime.genres.some((animeGenre) => genre === animeGenre.name))
 		: animeResults

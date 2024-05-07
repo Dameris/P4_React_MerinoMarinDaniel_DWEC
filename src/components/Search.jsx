@@ -29,7 +29,7 @@ const Search = ({ onSearch }) => {
 		setCurrentPage(newPage)
 	}
 
-	// Función que maneja el envío del formulario
+	// Función que maneja el envío del formulario de búsqueda
 	const handleSubmit = (event) => {
 		event.preventDefault()
 		onSearch(searchInput, selectedGenre, currentPage, resultsPerPage)
@@ -37,6 +37,7 @@ const Search = ({ onSearch }) => {
 
 	return (
 		<div>
+			{/* Formulario de búsqueda */}
 			<form
 				onSubmit={handleSubmit}
 				className="searchForm"
@@ -75,6 +76,7 @@ const Search = ({ onSearch }) => {
 					Search
 				</button>
 			</form>
+			{/* Componente para mostrar los resultados de la búsqueda */}
 			<DataHome
 				search={searchInput}
 				genre={selectedGenre}
@@ -82,6 +84,7 @@ const Search = ({ onSearch }) => {
 				resultsPerPage={resultsPerPage}
 				onPageChange={handlePageChange}
 			/>
+			{/* Paginación */}
 			<div className="pagination">
 				<button
 					onClick={() => handlePageChange(currentPage - 1)}

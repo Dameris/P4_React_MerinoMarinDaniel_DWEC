@@ -23,6 +23,7 @@ export default function LogIn() {
 	const handleSubmit = (e) => {
 		e.preventDefault()
 
+		// Abrir la base de datos IndexedDB
 		const request = window.indexedDB.open("userData", 1)
 
 		request.onerror = (event) => {
@@ -38,6 +39,7 @@ export default function LogIn() {
 			getUserRequest.onsuccess = (event) => {
 				const userData = event.target.result
 
+				// Verificar la validez del usuario y contraseña
 				if (userData && userData.password === user.password) {
 					localStorage.setItem("loggedUser", user.username)
 					setLogged(true)
@@ -66,6 +68,7 @@ export default function LogIn() {
 				src={Logo}
 				alt="Main Logo"
 			/>
+			{/* Formulario de inicio de sesión */}
 			<form
 				onSubmit={handleSubmit}
 				className="formLogIn"

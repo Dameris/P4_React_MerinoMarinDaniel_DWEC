@@ -22,7 +22,7 @@ export default function SignUp() {
 
 	const [redirect, setRedirect] = useState(false)
 
-	// Manejo de errores en el formulario
+	// Funciones de validación para cada campo del formulario
 	const validateEmail = () => {
 		const emailPattern = /^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,}$/
 		setFormErrors({ ...formErrors, emailError: !emailPattern.test(user.email) })
@@ -75,13 +75,13 @@ export default function SignUp() {
 		validatePassword()
 		validateBirthday()
 
-		// Comprobar si hay errores
+		// Comprueba si hay errores en el formulario
 		if (formErrors.emailError || formErrors.usernameError || formErrors.passwordError) {
 			alert("All input fields must contain valid information.")
 		} else {
 			alert("Form submitted successfully!")
 
-			// Agregar el nuevo usuario a IndexedDB
+			// Agrega el nuevo usuario a IndexedDB
 			const request = window.indexedDB.open("userData", 1)
 
 			request.onerror = (event) => {
