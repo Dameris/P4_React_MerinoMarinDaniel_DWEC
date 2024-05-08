@@ -1,375 +1,392 @@
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
 }
 
 html {
-    height: 100vh;
-    position: relative;
+	height: 100vh;
+	position: relative;
 }
 
 body {
-    min-height: 100vh;
-    margin: 0;
-    position: relative;
-    background-color: rgb(156, 212, 178);
+	min-height: 100vh;
+	margin: 0;
+	position: relative;
+	background-color: rgb(156, 212, 178);
 }
 
 .error404 {
-    text-align: center;
-    font-family: fantasy;
+	text-align: center;
+	font-family: fantasy;
 }
 
 /* Header */
 header {
-    width: 100%;
-    height: 10vh;
-    background-color: #D2B48C;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
+	width: 100%;
+	height: 10vh;
+	background-color: #d2b48c;
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
 }
 
 .logoHeader {
-    width: 120px;
+	width: 120px;
 }
 
 .navHeader {
-    width: 50%;
-    display: flex;
-    justify-content: space-between;
-    flex-direction: row;
+	width: 50%;
+	display: flex;
+	justify-content: space-between;
+	flex-direction: row;
 }
 
 .btnsHeader {
-    display: flex;
-    width: 100%;
-    font-size: 25px;
-    justify-content: space-between;
-    margin-right: 1vw;
+	display: flex;
+	width: 100%;
+	font-size: 25px;
+	justify-content: space-between;
+	margin-right: 1vw;
 
-    li {
-        list-style: none;
-    }
+	li {
+		list-style: none;
+	}
 
-    a,
-    li {
-        color: white;
-        transition: color 350ms ease;
-    }
+	a,
+	li {
+		color: white;
+		transition: color 350ms ease;
+	}
 
-    a:hover,
-    li:hover {
-        color: #5e3806;
-        transition: color 350ms ease;
-    }
+	a:hover,
+	li:hover {
+		color: #5e3806;
+		transition: color 350ms ease;
+	}
 }
 
 .iconsHeader {
-    display: flex;
-    color: white;
-    justify-content: space-around;
-    font-size: 30px;
+	display: flex;
+	color: white;
+	justify-content: space-around;
+	font-size: 30px;
 
-    a {
-        color: white;
-        transition: color 350ms ease;
-    }
+	a {
+		color: white;
+		transition: color 350ms ease;
+	}
 
-    a:hover {
-        color: #5e3806;
-        transition: color 350ms ease;
-    }
+	a:hover {
+		color: #5e3806;
+		transition: color 350ms ease;
+	}
 
-    li:hover {
-        color: #5e3806;
-        transition: color 350ms ease;
-    }
+	li:hover {
+		color: #5e3806;
+		transition: color 350ms ease;
+	}
 }
 
 .liLogged {
-    margin-right: 1vw;
+	margin-right: 1vw;
 }
 
 /* Home */
 .divSearch {
-    display: flex;
-    justify-content: center;
-    align-items: center;
+	display: flex;
+	justify-content: center;
+	align-items: center;
 }
 
 .btnSearch {
-    background-color: crimson;
-    border-color: crimson;
+	background-color: crimson;
+	border-color: crimson;
 }
 
 /* Logo */
 .mainLogo {
-    width: 15%;
-    display: block;
-    margin: auto;
+	width: 15%;
+	display: block;
+	margin: auto;
 }
 
 /* Log In */
 .logInWallpaper {
-    background-image: url("../src/assets/images/wallpaper5.png");
-    background-size: cover;
-    background-position: center;
-    height: 100vh;
+	background-image: url("../src/assets/images/wallpaper5.png");
+	background-size: cover;
+	background-position: center;
+	height: 100vh;
 }
 
 .formLogIn {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
 }
 
 .logInBlock {
-    display: flex;
-    flex-direction: column;
-    width: 400px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    padding: 20px;
-    text-align: center;
-    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
-    background-color: rgb(252, 193, 178);
+	display: flex;
+	flex-direction: column;
+	width: 400px;
+	border: 1px solid #ccc;
+	border-radius: 5px;
+	padding: 20px;
+	text-align: center;
+	box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+	background-color: rgb(252, 193, 178);
 }
 
 .login,
 .submitLogIn {
-    padding: 10px;
-    margin-bottom: 10px;
-    border-radius: 5px;
-    border: 1px solid #ccc;
-    font-size: 16px;
-    width: 100%;
+	padding: 10px;
+	margin-bottom: 10px;
+	border-radius: 5px;
+	border: 1px solid #ccc;
+	font-size: 16px;
+	width: 100%;
 }
 
 .login:focus,
 .submitLogIn:focus {
-    outline: none;
-    box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.1);
+	outline: none;
+	box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.1);
 }
 
 .submitLogIn {
-    background-color: #4b3e3e;
-    color: white;
-    cursor: pointer;
-    margin-top: 10px;
+	background-color: #4b3e3e;
+	color: white;
+	cursor: pointer;
+	margin-top: 10px;
 }
 
 .submitLogIn:hover {
-    background-color: #745e5e;
+	background-color: #745e5e;
 }
 
 /* Sign Up */
 .signUpWallpaper {
-    background-image: url("../src/assets/images/wallpaper6.jpg");
-    background-size: cover;
-    background-position: center;
-    height: 100vh;
+	background-image: url("../src/assets/images/wallpaper6.jpg");
+	background-size: cover;
+	background-position: center;
+	height: 100vh;
 }
 
 .formSignUp {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
 }
 
 .signUpBlock {
-    display: flex;
-    flex-direction: column;
-    width: 400px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    padding: 20px;
-    text-align: center;
-    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
-    background-color: rgb(252, 207, 178);
+	display: flex;
+	flex-direction: column;
+	width: 400px;
+	border: 1px solid #ccc;
+	border-radius: 5px;
+	padding: 20px;
+	text-align: center;
+	box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+	background-color: rgb(252, 207, 178);
 }
 
 .signup,
 .submitSignUp {
-    padding: 10px;
-    margin-bottom: 10px;
-    border-radius: 5px;
-    border: 1px solid #ccc;
-    font-size: 16px;
-    width: 100%;
+	padding: 10px;
+	margin-bottom: 10px;
+	border-radius: 5px;
+	border: 1px solid #ccc;
+	font-size: 16px;
+	width: 100%;
 }
 
 .signup:focus,
 .submitSignUp:focus {
-    outline: none;
-    box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.1);
+	outline: none;
+	box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.1);
 }
 
 .submitSignUp {
-    background-color: #4b3e3e;
-    color: white;
-    cursor: pointer;
-    margin-top: 10px;
+	background-color: #4b3e3e;
+	color: white;
+	cursor: pointer;
+	margin-top: 10px;
 }
 
 .submitSignUp:hover {
-    background-color: #745e5e;
+	background-color: #745e5e;
 }
 
 .error__message {
-    display: block;
-    padding-bottom: 1em;
-    color: red;
+	display: block;
+	padding-bottom: 1em;
+	color: red;
 }
 
 /* Contact */
 .contactWallpaper {
-    background-image: url("../src/assets/images/wallpaper4.png");
-    background-size: cover;
-    background-position: center;
-    height: 100vh;
+	background-image: url("../src/assets/images/wallpaper4.png");
+	background-size: cover;
+	background-position: center;
+	height: 100vh;
 }
 
 .formContact {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
 }
 
 .formBlock {
-    display: flex;
-    flex-direction: column;
-    width: 400px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    padding: 20px;
-    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
-    background-color: rgb(252, 178, 191);
+	display: flex;
+	flex-direction: column;
+	width: 400px;
+	border: 1px solid #ccc;
+	border-radius: 5px;
+	padding: 20px;
+	box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+	background-color: rgb(252, 178, 191);
 }
 
 .contact,
 .submit {
-    padding: 10px;
-    margin-bottom: 10px;
-    border-radius: 5px;
-    border: 1px solid #ccc;
-    font-size: 16px;
-    width: 100%;
+	padding: 10px;
+	margin-bottom: 10px;
+	border-radius: 5px;
+	border: 1px solid #ccc;
+	font-size: 16px;
+	width: 100%;
 }
 
 .contact:focus,
 .submit:focus {
-    outline: none;
-    box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.1);
+	outline: none;
+	box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.1);
 }
 
 textarea {
-    padding: 10px;
-    border-radius: 5px;
-    border: 1px solid #ccc;
-    font-size: 16px;
-    width: 100%;
-    height: 100px;
+	padding: 10px;
+	border-radius: 5px;
+	border: 1px solid #ccc;
+	font-size: 16px;
+	width: 100%;
+	height: 100px;
 }
 
 .submit {
-    background-color: #4b3e3e;
-    color: white;
-    cursor: pointer;
-    margin-top: 10px;
+	background-color: #4b3e3e;
+	color: white;
+	cursor: pointer;
+	margin-top: 10px;
 }
 
 .submit:hover {
-    background-color: #745e5e;
+	background-color: #745e5e;
 }
 
 /* Search */
 .searchForm {
-    display: flex;
-    align-items: flex-start;
-    justify-content: center;
+	display: flex;
+	align-items: flex-start;
+	justify-content: center;
 }
 
 .pagination {
-    width: 100%;
-    position: absolute;
-    bottom: 10.9vh;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    font-size: large;
+	width: 100%;
+	position: absolute;
+	bottom: 10.9vh;
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	font-size: large;
 }
 
 .search,
 .submitSearch {
-    padding: 10px;
-    margin-bottom: 10px;
-    border-radius: 5px;
-    border: 1px solid #ccc;
-    font-size: 16px;
-    width: 20%;
+	padding: 10px;
+	margin-bottom: 10px;
+	border-radius: 5px;
+	border: 1px solid #ccc;
+	font-size: 16px;
+	width: 20%;
 }
 
 .search:focus,
 .submitSearch:focus {
-    outline: none;
-    box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.1);
+	outline: none;
+	box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.1);
 }
 
 .submitSearch {
-    background-color: #4b3e3e;
-    color: white;
-    cursor: pointer;
+	background-color: #4b3e3e;
+	color: white;
+	cursor: pointer;
 }
 
 .submitSearch:hover {
-    background-color: #745e5e;
+	background-color: #745e5e;
 }
 
-/* DataJikan */
+/* DataHome */
 .animeList {
-    display: flex;
-    justify-content: center;
-    flex-wrap: wrap;
-    list-style: none;
-    padding-bottom: 8em;
-    margin: 0;
+	display: flex;
+	justify-content: center;
+	flex-wrap: wrap;
+	list-style: none;
+	padding-bottom: 8em;
+	margin: 0;
 }
 
 .animeCard {
-    margin: 1rem;
-    width: 18rem;
-    height: 30rem;
-    display: flex;
-    flex-direction: column;
+	margin: 1rem;
+	width: 18rem;
+	height: 30rem;
+	display: flex;
+	flex-direction: column;
 }
 
 .cardName {
-    height: 40px;
-    width: 100%;
-    white-space: nowrap;
-    text-overflow: ellipsis;
-    overflow: hidden;
-    font-size: 14px;
-    color: #343434;
-    font-weight: 700;
+	height: 40px;
+	width: 100%;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+	overflow: hidden;
+	font-size: 14px;
+	color: #343434;
+	font-weight: 700;
 }
 
 .animeImg {
-    overflow: hidden;
+	overflow: hidden;
+}
+
+.checkbox_order {
+	text-align: center;
+	margin: 20px 0;
+}
+
+.checkbox_order input[type="checkbox"] {
+	width: 20px;
+	height: 20px;
+	vertical-align: middle;
+}
+
+.checkbox_order label {
+	cursor: pointer;
+	vertical-align: middle;
+    margin-left: 5px;
 }
 
 /* Anime Details */
 .detailsDiv {
-    padding-bottom: 8em;
+	padding-bottom: 8em;
 }
 
 .imgSynopsis {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	text-align: center;
 }
 
 /* .detailsP {
@@ -378,97 +395,97 @@ textarea {
 
 /* User Profile */
 .userProfile {
-    background-image: url("../src/assets/images/wallpaper2.jpg");
-    background-size: cover;
-    background-position: center;
-    height: 100vh;
-    padding: 20px;
-    display: flex;
-    justify-content: flex-start;
-    align-items: center;
-    flex-direction: column;
+	background-image: url("../src/assets/images/wallpaper2.jpg");
+	background-size: cover;
+	background-position: center;
+	height: 100vh;
+	padding: 20px;
+	display: flex;
+	justify-content: flex-start;
+	align-items: center;
+	flex-direction: column;
 }
 
 .pfInfo {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    border: 1px solid #ccc;
-    border-radius: 10px;
-    width: 600px;
-    padding: 20px;
-    margin-top: 10vh;
-    background-color: #292323a9;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	border: 1px solid #ccc;
+	border-radius: 10px;
+	width: 600px;
+	padding: 20px;
+	margin-top: 10vh;
+	background-color: #292323a9;
 }
 
 .defaultPfp {
-    width: 150px;
-    height: 150px;
-    border-radius: 50%;
-    margin-bottom: 20px;
+	width: 150px;
+	height: 150px;
+	border-radius: 50%;
+	margin-bottom: 20px;
 }
 
 .userInfoBox {
-    color: #ffffff;
-    font-size: xx-large;
-    padding: 15px;
-    border-radius: 10px;
-    margin-top: 20px;
-    text-align: justify;
+	color: #ffffff;
+	font-size: xx-large;
+	padding: 15px;
+	border-radius: 10px;
+	margin-top: 20px;
+	text-align: justify;
 }
 
 /* Footer */
 footer {
-    width: 100%;
-    background-color: #262C3A;
-    position: absolute;
-    bottom: 0;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
+	width: 100%;
+	background-color: #262c3a;
+	position: absolute;
+	bottom: 0;
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
 }
 
 .logoFooter {
-    width: 100px;
+	width: 100px;
 }
 
 .mediaIcons {
-    display: flex;
-    align-items: center;
-    justify-content: space-around;
+	display: flex;
+	align-items: center;
+	justify-content: space-around;
 
-    li {
-        list-style: none;
-    }
+	li {
+		list-style: none;
+	}
 }
 
 .iconsFooter {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-around;
-    color: white;
-    font-size: 25px;
-    column-gap: 50px;
+	display: flex;
+	flex-direction: row;
+	justify-content: space-around;
+	color: white;
+	font-size: 25px;
+	column-gap: 50px;
 }
 
 .navFooter {
-    width: 40%;
-    display: flex;
-    justify-content: space-around;
-    flex-direction: row;
-    column-gap: 150px;
-    color: white;
+	width: 40%;
+	display: flex;
+	justify-content: space-around;
+	flex-direction: row;
+	column-gap: 150px;
+	color: white;
 }
 
 .buttonsFooter {
-    width: 100%;
-    display: flex;
-    justify-content: space-between;
-    column-gap: 60px;
-    font-size: 25px;
-    margin-right: 4vw;
+	width: 100%;
+	display: flex;
+	justify-content: space-between;
+	column-gap: 60px;
+	font-size: 25px;
+	margin-right: 4vw;
 
-    li {
-        list-style: none;
-    }
+	li {
+		list-style: none;
+	}
 }

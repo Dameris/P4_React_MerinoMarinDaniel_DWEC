@@ -3,10 +3,11 @@ import { Card } from "react-bootstrap"
 import { Link } from "react-router-dom"
 import { useUserContext } from "../context/UserContext"
 
-const DataHome = ({ search, genre, page, resultsPerPage }) => {
+const DataHome = ({ search, genre, page, resultsPerPage}) => {
 	const { user, updateFavorites, logged } = useUserContext()
 	const [animeResults, setAnimeResults] = useState([])
 	const [totalPages, setTotalPages] = useState(0)
+	const [sortByAlphabetical, setSortByAlphabetical] = useState(false)
 
 	useEffect(() => {
 		const fetchAnimeData = async () => {
@@ -44,15 +45,28 @@ const DataHome = ({ search, genre, page, resultsPerPage }) => {
 		updateFavorites(updatedFavorites)
 	}
 
-	// Filtrar los resultados del anime por género si se especifica un género
-	const filteredAnimeResults = genre
-		? animeResults.filter((anime) => anime.genres.some((animeGenre) => genre === animeGenre.name))
-		: animeResults
+	// Filtrar y ordenar los resultados del anime
+	const filteredAnimeResults = animeResults.filter(
+		(anime) => !genre || anime.genres.some((animeGenre) => genre === animeGenre.name)
+	)
+
+	const sortedAnimeResults = sortByAlphabetical
+		? filteredAnimeResults.sort((a, b) => a.title.localeCompare(b.title))
+		: filteredAnimeResults
 
 	return (
 		<div>
+			<div className="checkbox_order">
+				<input
+					type="checkbox"
+					id="checkbox"
+					checked={sortByAlphabetical}
+					onChange={(e) => setSortByAlphabetical(e.target.checked)}
+				/>
+				<label htmlFor="checkbox">Sort by alphabetical order</label>
+			</div>
 			<ul className="animeList">
-				{filteredAnimeResults.map((anime) => (
+				{sortedAnimeResults.map((anime) => (
 					<Card
 						key={anime.mal_id}
 						className="animeCard"
