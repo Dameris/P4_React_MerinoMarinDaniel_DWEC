@@ -20,7 +20,7 @@ export default function LogIn() {
 	}
 
 	// Manejar los datos enviados
-	const handleSubmit = (e) => {
+	const handleSubmit = async (e) => {
 		e.preventDefault()
 
 		// Abrir la base de datos IndexedDB
@@ -36,17 +36,33 @@ export default function LogIn() {
 			const objectStore = transaction.objectStore("users")
 			const getUserRequest = objectStore.get(user.username)
 
-			getUserRequest.onsuccess = (event) => {
+			getUserRequest.onsuccess = async (event) => {
 				const userData = event.target.result
 
 				// Verificar la validez del usuario y contraseña
-				if (userData && userData.password === user.password) {
-					localStorage.setItem("loggedUser", user.username)
-					setLogged(true)
-					addUser(userData)
-					setRedirect(true)
+				if (userData) {
+					try {
+						const encoder = new TextEncoder()
+						const data = encoder.encode(user.password)
+						const hashBuffer = await crypto.subtle.digest("SHA-256", data)
+						const hashArray = Array.from(new Uint8Array(hashBuffer))
+						const hashedPassword = hashArray
+							.map((byte) => byte.toString(16).padStart(2, "0"))
+							.join("")
+
+						if (userData.password === hashedPassword) {
+							localStorage.setItem("loggedUser", user.username)
+							setLogged(true)
+							addUser(userData)
+							setRedirect(true)
+						} else {
+							setError("Incorrect username or password")
+						}
+					} catch (error) {
+						console.error("Error hashing password:", error)
+					}
 				} else {
-					setError("Incorrect username or password")
+					setError("User not found")
 				}
 			}
 

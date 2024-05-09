@@ -67,7 +67,7 @@ export default function SignUp() {
 	}
 
 	// Manejar los datos enviados
-	const handleSubmit = (e) => {
+	const handleSubmit = async (e) => {
 		e.preventDefault()
 
 		validateEmail()
@@ -81,28 +81,41 @@ export default function SignUp() {
 		} else {
 			alert("Form submitted successfully!")
 
-			// Agrega el nuevo usuario a IndexedDB
-			const request = window.indexedDB.open("userData", 1)
+			try {
+				const encoder = new TextEncoder()
+				const data = encoder.encode(user.password)
+				const hashBuffer = await crypto.subtle.digest("SHA-256", data)
+				const hashArray = Array.from(new Uint8Array(hashBuffer))
+				const hashedPassword = hashArray.map((byte) => byte.toString(16).padStart(2, "0")).join("")
 
-			request.onerror = (event) => {
-				console.error("Error opening IndexedDB:", event.target.error)
-			}
+				// Actualiza la contraseña del usuario con el hash
+				user.password = hashedPassword
 
-			request.onsuccess = (event) => {
-				const db = event.target.result
-				const transaction = db.transaction("users", "readwrite")
-				const objectStore = transaction.objectStore("users")
-				const addUserRequest = objectStore.add(user)
+				// Agrega el nuevo usuario a IndexedDB
+				const request = window.indexedDB.open("userData", 1)
 
-				addUserRequest.onsuccess = (event) => {
-					console.log("User added successfully to IndexedDB")
-					addUser(user)
-					setRedirect(true)
+				request.onerror = (event) => {
+					console.error("Error opening IndexedDB:", event.target.error)
 				}
 
-				addUserRequest.onerror = (event) => {
-					console.error("Error adding user to IndexedDB:", event.target.error)
+				request.onsuccess = (event) => {
+					const db = event.target.result
+					const transaction = db.transaction("users", "readwrite")
+					const objectStore = transaction.objectStore("users")
+					const addUserRequest = objectStore.add(user)
+
+					addUserRequest.onsuccess = (event) => {
+						console.log("User added successfully to IndexedDB")
+						addUser(user)
+						setRedirect(true)
+					}
+
+					addUserRequest.onerror = (event) => {
+						console.error("Error adding user to IndexedDB:", event.target.error)
+					}
 				}
+			} catch (error) {
+				console.error("Error hashing password:", error)
 			}
 
 			setRedirect(true)
@@ -110,7 +123,7 @@ export default function SignUp() {
 	}
 
 	if (redirect) {
-		return <Navigate to="/login" />
+		return <Navigate to="/" />
 	}
 
 	return (
