@@ -6,7 +6,6 @@ const Search = ({ onSearch }) => {
 	const [genres, setGenres] = useState([])
 	const [selectedGenre, setSelectedGenre] = useState("")
 	const [currentPage, setCurrentPage] = useState(1)
-	const [resultsPerPage] = useState(20)
 
 	// Llamada a "API Jikan" para obtener los géneros
 	useEffect(() => {
@@ -81,20 +80,8 @@ const Search = ({ onSearch }) => {
 				search={searchInput}
 				genre={selectedGenre}
 				page={currentPage}
-				resultsPerPage={resultsPerPage}
 				onPageChange={handlePageChange}
 			/>
-			{/* Paginación */}
-			<div className="pagination">
-				<button
-					onClick={() => handlePageChange(currentPage - 1)}
-					disabled={currentPage === 1}
-				>
-					Previous Page
-				</button>
-				<span>{currentPage}</span>
-				<button onClick={() => handlePageChange(currentPage + 1)}>Next Page</button>
-			</div>
 		</div>
 	)
 }

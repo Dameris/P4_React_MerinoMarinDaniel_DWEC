@@ -3,7 +3,7 @@ import { Card } from "react-bootstrap"
 import { Link } from "react-router-dom"
 import { useUserContext } from "../context/UserContext"
 
-const DataHome = ({ search, genre, page, resultsPerPage}) => {
+const DataHome = ({ search, genre, page, onPageChange }) => {
 	const { user, updateFavorites, logged } = useUserContext()
 	const [animeResults, setAnimeResults] = useState([])
 	const [totalPages, setTotalPages] = useState(0)
@@ -14,11 +14,13 @@ const DataHome = ({ search, genre, page, resultsPerPage}) => {
 			try {
 				// Llamada a la API Jikan para obtener los datos del anime
 				const response = await fetch(
-					`https://api.jikan.moe/v4/anime?q=${search}&sfw&page=${page}&per_page=${resultsPerPage}`
+					`https://api.jikan.moe/v4/anime?q=${search}&sfw&page=${page}`
 				)
 				const { data, pagination } = await response.json()
 				setAnimeResults(data)
-				setTotalPages(pagination.items.total)
+				console.log(data)
+				setTotalPages(pagination.last_visible_page)
+				console.log(pagination)
 			} catch (error) {
 				console.error("Error fetching anime data from Jikan API", error)
 			}
@@ -28,7 +30,7 @@ const DataHome = ({ search, genre, page, resultsPerPage}) => {
 		const timeoutId = setTimeout(fetchAnimeData, 1000)
 
 		return () => clearTimeout(timeoutId)
-	}, [search, genre, page, resultsPerPage])
+	}, [search, genre, page])
 
 	// Función para agregar o eliminar un anime de los favoritos
 	const toggleFavorite = (animeId) => {
@@ -93,6 +95,21 @@ const DataHome = ({ search, genre, page, resultsPerPage}) => {
 					</Card>
 				))}
 			</ul>
+			<div className="pagination">
+				<button
+					onClick={() => onPageChange(page - 1)}
+					disabled={page === 1}
+				>
+					Previous Page
+				</button>
+				<span>{page}</span>
+				<button
+					onClick={() => onPageChange(page + 1)}
+					disabled={page === totalPages}
+				>
+					Next Page
+				</button>
+			</div>
 		</div>
 	)
 }
