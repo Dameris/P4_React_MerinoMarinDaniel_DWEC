@@ -13,9 +13,7 @@ const DataHome = ({ search, genre, page, onPageChange }) => {
 		const fetchAnimeData = async () => {
 			try {
 				// Llamada a la API Jikan para obtener los datos del anime
-				const response = await fetch(
-					`https://api.jikan.moe/v4/anime?q=${search}&sfw&page=${page}`
-				)
+				const response = await fetch(`https://api.jikan.moe/v4/anime?q=${search}&sfw&page=${page}`)
 				const { data, pagination } = await response.json()
 				setAnimeResults(data)
 				console.log(data)
@@ -31,6 +29,11 @@ const DataHome = ({ search, genre, page, onPageChange }) => {
 
 		return () => clearTimeout(timeoutId)
 	}, [search, genre, page])
+
+	// Función para desplazar la página hacia arriba
+	const scrollToTop = () => {
+		window.scrollTo({ top: 0, behavior: "smooth" })
+	}
 
 	// Función para agregar o eliminar un anime de los favoritos
 	const toggleFavorite = (animeId) => {
@@ -97,14 +100,20 @@ const DataHome = ({ search, genre, page, onPageChange }) => {
 			</ul>
 			<div className="pagination">
 				<button
-					onClick={() => onPageChange(page - 1)}
+					onClick={() => {
+						onPageChange(page - 1)
+						scrollToTop()
+					}}
 					disabled={page === 1}
 				>
 					Previous Page
 				</button>
 				<span>{page}</span>
 				<button
-					onClick={() => onPageChange(page + 1)}
+					onClick={() => {
+						onPageChange(page + 1)
+						scrollToTop()
+					}}
 					disabled={page === totalPages}
 				>
 					Next Page
