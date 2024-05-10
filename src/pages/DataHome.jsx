@@ -2,6 +2,9 @@ import React, { useEffect, useState } from "react"
 import { Card } from "react-bootstrap"
 import { Link } from "react-router-dom"
 import { useUserContext } from "../context/UserContext"
+import Button from "@mui/material/Button"
+import Box from "@mui/material/Box"
+import ArrowUpwardIcon from "@mui/icons-material/ArrowUpward"
 
 const DataHome = ({ search, genre, page, onPageChange }) => {
 	const { user, updateFavorites, logged } = useUserContext()
@@ -119,6 +122,15 @@ const DataHome = ({ search, genre, page, onPageChange }) => {
 					Next Page
 				</button>
 			</div>
+			<Box className="boxScrollTop">
+				<Button
+					onClick={scrollToTop}
+					variant="contained"
+					color="success"
+					size="small"
+					startIcon={<ArrowUpwardIcon />}
+				/>
+			</Box>
 		</div>
 	)
 }

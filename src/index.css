@@ -377,6 +377,12 @@ textarea {
     margin-left: 5px;
 }
 
+.boxScrollTop {
+	position: fixed;
+	bottom: 20px;
+	right: 20px;
+}
+
 /* Anime Details */
 .detailsDiv {
 	padding-bottom: 8em;
