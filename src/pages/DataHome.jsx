@@ -11,6 +11,7 @@ const DataHome = ({ search, genre, page, onPageChange }) => {
 	const [animeResults, setAnimeResults] = useState([])
 	const [totalPages, setTotalPages] = useState(0)
 	const [sortByAlphabetical, setSortByAlphabetical] = useState(false)
+	const [isVisible, setIsVisible] = useState(false)
 
 	useEffect(() => {
 		const fetchAnimeData = async () => {
@@ -37,6 +38,22 @@ const DataHome = ({ search, genre, page, onPageChange }) => {
 	const scrollToTop = () => {
 		window.scrollTo({ top: 0, behavior: "smooth" })
 	}
+
+	useEffect(() => {
+		const handleScroll = () => {
+			if (window.scrollY > 400) {
+				setIsVisible(true)
+			} else {
+				setIsVisible(false)
+			}
+		}
+
+		window.addEventListener("scroll", handleScroll)
+
+		return () => {
+			window.removeEventListener("scroll", handleScroll)
+		}
+	}, [])
 
 	// Función para agregar o eliminar un anime de los favoritos
 	const toggleFavorite = (animeId) => {
@@ -122,15 +139,17 @@ const DataHome = ({ search, genre, page, onPageChange }) => {
 					Next Page
 				</button>
 			</div>
-			<Box className="boxScrollTop">
-				<Button
-					onClick={scrollToTop}
-					variant="contained"
-					color="success"
-					size="small"
-					startIcon={<ArrowUpwardIcon />}
-				/>
-			</Box>
+			{isVisible && (
+				<Box className="boxScrollTop">
+					<Button
+						onClick={scrollToTop}
+						variant="contained"
+						color="success"
+						size="small"
+						startIcon={<ArrowUpwardIcon />}
+					/>
+				</Box>
+			)}
 		</div>
 	)
 }
