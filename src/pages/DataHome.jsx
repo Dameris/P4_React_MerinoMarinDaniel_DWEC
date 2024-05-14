@@ -11,18 +11,44 @@ const DataHome = ({ search, genre, page, onPageChange }) => {
 	const [animeResults, setAnimeResults] = useState([])
 	const [totalPages, setTotalPages] = useState(0)
 	const [sortByAlphabetical, setSortByAlphabetical] = useState(false)
+	const [alphabeticalOrder, setAlphabeticalOrder] = useState("asc")
+	const [sortByScore, setSortByScore] = useState(false)
+	const [scoreOrder, setScoreOrder] = useState("desc")
+	const [sortByEpisodes, setSortByEpisodes] = useState(false)
+	const [episodesOrder, setEpisodesOrder] = useState("desc")
+	const [sortByMalId, setSortByMalId] = useState(true) // Predeterminado activo
+	const [malIdOrder, setMalIdOrder] = useState("asc") // Predeterminado ascendente
 	const [isVisible, setIsVisible] = useState(false)
 
 	useEffect(() => {
 		const fetchAnimeData = async () => {
 			try {
-				// Llamada a la API Jikan para obtener los datos del anime
-				const response = await fetch(`https://api.jikan.moe/v4/anime?q=${search}&sfw&page=${page}`)
+				let apiUrl = `https://api.jikan.moe/v4/anime?q=${search}&sfw&page=${page}`
+
+				if (sortByAlphabetical) {
+					apiUrl += `&order_by=title&sort=${alphabeticalOrder}`
+				}
+
+				if (sortByScore) {
+					apiUrl += `&order_by=score&sort=${scoreOrder}`
+				}
+
+				if (sortByEpisodes) {
+					apiUrl += `&order_by=episodes&sort=${episodesOrder}`
+				}
+
+				if (sortByMalId) {
+					apiUrl += `&order_by=mal_id&sort=${malIdOrder}`
+				}
+
+				const response = await fetch(apiUrl)
 				const { data, pagination } = await response.json()
-				setAnimeResults(data)
-				console.log(data)
+
+				// Filtrar los resultados para evitar duplicados por mal_id
+				const uniqueAnimeResults = filterUniqueByMalId(data)
+
+				setAnimeResults(uniqueAnimeResults)
 				setTotalPages(pagination.last_visible_page)
-				console.log(pagination)
 			} catch (error) {
 				console.error("Error fetching anime data from Jikan API", error)
 			}
@@ -30,9 +56,35 @@ const DataHome = ({ search, genre, page, onPageChange }) => {
 
 		// Retrasar la llamada para evitar la sobrecarga del servidor
 		const timeoutId = setTimeout(fetchAnimeData, 1000)
-
 		return () => clearTimeout(timeoutId)
-	}, [search, genre, page])
+	}, [
+		search,
+		genre,
+		page,
+		sortByAlphabetical,
+		alphabeticalOrder,
+		sortByScore,
+		scoreOrder,
+		sortByEpisodes,
+		episodesOrder,
+		sortByMalId,
+		malIdOrder,
+	])
+
+	// Función para filtrar resultados únicos por mal_id
+	const filterUniqueByMalId = (data) => {
+		const malIdSet = new Set()
+		const uniqueAnimeResults = []
+
+		data.forEach((anime) => {
+			if (!malIdSet.has(anime.mal_id)) {
+				malIdSet.add(anime.mal_id)
+				uniqueAnimeResults.push(anime)
+			}
+		})
+
+		return uniqueAnimeResults
+	}
 
 	// Función para desplazar la página hacia arriba
 	const scrollToTop = () => {
@@ -41,15 +93,10 @@ const DataHome = ({ search, genre, page, onPageChange }) => {
 
 	useEffect(() => {
 		const handleScroll = () => {
-			if (window.scrollY > 400) {
-				setIsVisible(true)
-			} else {
-				setIsVisible(false)
-			}
+			setIsVisible(window.scrollY > 400)
 		}
 
 		window.addEventListener("scroll", handleScroll)
-
 		return () => {
 			window.removeEventListener("scroll", handleScroll)
 		}
@@ -70,28 +117,145 @@ const DataHome = ({ search, genre, page, onPageChange }) => {
 		updateFavorites(updatedFavorites)
 	}
 
-	// Filtrar y ordenar los resultados del anime
+	// Filtrar los resultados del anime según el género
 	const filteredAnimeResults = animeResults.filter(
 		(anime) => !genre || anime.genres.some((animeGenre) => genre === animeGenre.name)
 	)
-
-	const sortedAnimeResults = sortByAlphabetical
-		? filteredAnimeResults.sort((a, b) => a.title.localeCompare(b.title))
-		: filteredAnimeResults
 
 	return (
 		<div>
 			<div className="checkbox_order">
 				<input
 					type="checkbox"
-					id="checkbox"
+					id="orderCheckbox"
 					checked={sortByAlphabetical}
 					onChange={(e) => setSortByAlphabetical(e.target.checked)}
+					disabled={sortByScore || sortByEpisodes || sortByMalId}
 				/>
-				<label htmlFor="checkbox">Sort by alphabetical order</label>
+				<label htmlFor="orderCheckbox">Sort by alphabetical order</label>
+				<div>
+					<label>
+						<input
+							type="radio"
+							name="alphabeticalOrder"
+							value="asc"
+							checked={sortByAlphabetical && alphabeticalOrder === "asc"}
+							onChange={() => setAlphabeticalOrder("asc")}
+							disabled={!sortByAlphabetical}
+						/>
+						Asc
+					</label>
+					<label>
+						<input
+							type="radio"
+							name="alphabeticalOrder"
+							value="desc"
+							checked={sortByAlphabetical && alphabeticalOrder === "desc"}
+							onChange={() => setAlphabeticalOrder("desc")}
+							disabled={!sortByAlphabetical}
+						/>
+						Desc
+					</label>
+				</div>
+				<input
+					type="checkbox"
+					id="scoreCheckbox"
+					checked={sortByScore}
+					onChange={(e) => setSortByScore(e.target.checked)}
+					disabled={sortByAlphabetical || sortByEpisodes || sortByMalId}
+				/>
+				<label htmlFor="scoreCheckbox">Sort by score</label>
+				<div>
+					<label>
+						<input
+							type="radio"
+							name="scoreOrder"
+							value="asc"
+							checked={sortByScore && scoreOrder === "asc"}
+							onChange={() => setScoreOrder("asc")}
+							disabled={!sortByScore}
+						/>
+						Asc
+					</label>
+					<label>
+						<input
+							type="radio"
+							name="scoreOrder"
+							value="desc"
+							checked={sortByScore && scoreOrder === "desc"}
+							onChange={() => setScoreOrder("desc")}
+							disabled={!sortByScore}
+						/>
+						Desc
+					</label>
+				</div>
+				<input
+					type="checkbox"
+					id="episodesCheckbox"
+					checked={sortByEpisodes}
+					onChange={(e) => setSortByEpisodes(e.target.checked)}
+					disabled={sortByAlphabetical || sortByScore || sortByMalId}
+				/>
+				<label htmlFor="episodesCheckbox">Sort by episodes</label>
+				<div>
+					<label>
+						<input
+							type="radio"
+							name="episodesOrder"
+							value="asc"
+							checked={sortByEpisodes && episodesOrder === "asc"}
+							onChange={() => setEpisodesOrder("asc")}
+							disabled={!sortByEpisodes}
+						/>
+						Asc
+					</label>
+					<label>
+						<input
+							type="radio"
+							name="episodesOrder"
+							value="desc"
+							checked={sortByEpisodes && episodesOrder === "desc"}
+							onChange={() => setEpisodesOrder("desc")}
+							disabled={!sortByEpisodes}
+						/>
+						Desc
+					</label>
+				</div>
+				<input
+					type="checkbox"
+					id="malIdCheckbox"
+					checked={sortByMalId}
+					onChange={(e) => setSortByMalId(e.target.checked)}
+					disabled={sortByAlphabetical || sortByScore || sortByEpisodes}
+				/>
+				<label htmlFor="malIdCheckbox">Sort by MyAnimeList ID</label>
+				<div>
+					<label>
+						<input
+							type="radio"
+							name="malIdOrder"
+							value="asc"
+							checked={sortByMalId && malIdOrder === "asc"}
+							onChange={() => setMalIdOrder("asc")}
+							disabled={!sortByMalId}
+						/>
+						Asc
+					</label>
+					<label>
+						<input
+							type="radio"
+							name="malIdOrder"
+							value="desc"
+							checked={sortByMalId && malIdOrder === "desc"}
+							onChange={() => setMalIdOrder("desc")}
+							disabled={!sortByMalId}
+						/>
+						Desc
+					</label>
+				</div>
 			</div>
 			<ul className="animeList">
-				{sortedAnimeResults.map((anime) => (
+				{filteredAnimeResults.map((anime) => (
 					<Card
 						key={anime.mal_id}
 						className="animeCard"
