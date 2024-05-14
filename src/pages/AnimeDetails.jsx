@@ -76,7 +76,8 @@ const AnimeDetails = () => {
 				Type: {animeResults.data.type} <br />
 				Source: {animeResults.data.source} <br />
 				Episodes: {animeResults.data.episodes} <br />
-				Status: {animeResults.data.status}
+				Status: {animeResults.data.status} <br />
+				Score: {animeResults.data.score}
 			</p>
 		</div>
 	)

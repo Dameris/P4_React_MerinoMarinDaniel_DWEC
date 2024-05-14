@@ -31,7 +31,12 @@ const Search = ({ onSearch }) => {
 	// Función que maneja el envío del formulario de búsqueda
 	const handleSubmit = (event) => {
 		event.preventDefault()
-		onSearch(searchInput, selectedGenre, currentPage, resultsPerPage)
+		onSearch(searchInput, selectedGenre, currentPage)
+	}
+
+	const handleGenreChange = (event) => {
+		const selectedValue = event.target.value
+		setSelectedGenre(selectedValue === "all" ? "" : selectedValue)
 	}
 
 	return (
@@ -51,14 +56,9 @@ const Search = ({ onSearch }) => {
 				<select
 					className="search"
 					value={selectedGenre}
-					onChange={(event) => setSelectedGenre(event.target.value)}
+					onChange={handleGenreChange}
 				>
-					<option
-						className="search"
-						value="genres"
-					>
-						All genres
-					</option>
+					<option value="all">All genres</option>
 					{genres.map((genre) => (
 						<option
 							key={genre.mal_id}
@@ -75,7 +75,6 @@ const Search = ({ onSearch }) => {
 					Search
 				</button>
 			</form>
-			{/* Componente para mostrar los resultados de la búsqueda */}
 			<DataHome
 				search={searchInput}
 				genre={selectedGenre}
