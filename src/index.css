@@ -360,22 +360,35 @@ textarea {
 	overflow: hidden;
 }
 
-.checkbox_order {
+.filtersBox {
+	display: flex;
 	text-align: center;
+	justify-content: center;
 	margin: 20px 0;
 }
 
-.checkbox_order input[type="checkbox"] {
+.filtersBox input[type="checkbox"] {
 	width: 20px;
 	height: 20px;
 	vertical-align: middle;
-	margin-left: 20px;
 }
 
-.checkbox_order label {
-	cursor: pointer;
+.filtersBox label {
 	vertical-align: middle;
+	margin-right: 5px;
 	margin-left: 5px;
+}
+
+.checkboxBox {
+	background-color: #fff;
+	padding: 10px;
+	margin-right: 10px;
+	border-radius: 5px;
+	box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+}
+
+.checkboxBox :disabled {
+	cursor: not-allowed;
 }
 
 .boxScrollTop {

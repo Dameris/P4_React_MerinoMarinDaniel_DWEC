@@ -123,17 +123,17 @@ const DataHome = ({ search, genre, page, onPageChange }) => {
 	)
 
 	return (
-		<div>
-			<div className="checkbox_order">
-				<input
-					type="checkbox"
-					id="orderCheckbox"
-					checked={sortByAlphabetical}
-					onChange={(e) => setSortByAlphabetical(e.target.checked)}
-					disabled={sortByScore || sortByEpisodes || sortByMalId}
-				/>
-				<label htmlFor="orderCheckbox">Sort by alphabetical order</label>
-				<div>
+		<div className="text-center">
+			<div className="filtersBox">
+				<div className="checkboxBox">
+					<input
+						type="checkbox"
+						id="orderCheckbox"
+						checked={sortByAlphabetical}
+						onChange={(e) => setSortByAlphabetical(e.target.checked)}
+						disabled={sortByScore || sortByEpisodes || sortByMalId}
+					/>
+					<label htmlFor="orderCheckbox">Sort by alphabetical order</label>
 					<label>
 						<input
 							type="radio"
@@ -157,15 +157,15 @@ const DataHome = ({ search, genre, page, onPageChange }) => {
 						Desc
 					</label>
 				</div>
-				<input
-					type="checkbox"
-					id="scoreCheckbox"
-					checked={sortByScore}
-					onChange={(e) => setSortByScore(e.target.checked)}
-					disabled={sortByAlphabetical || sortByEpisodes || sortByMalId}
-				/>
-				<label htmlFor="scoreCheckbox">Sort by score</label>
-				<div>
+				<div className="checkboxBox">
+					<input
+						type="checkbox"
+						id="scoreCheckbox"
+						checked={sortByScore}
+						onChange={(e) => setSortByScore(e.target.checked)}
+						disabled={sortByAlphabetical || sortByEpisodes || sortByMalId}
+					/>
+					<label htmlFor="scoreCheckbox">Sort by score</label>
 					<label>
 						<input
 							type="radio"
@@ -189,15 +189,15 @@ const DataHome = ({ search, genre, page, onPageChange }) => {
 						Desc
 					</label>
 				</div>
-				<input
-					type="checkbox"
-					id="episodesCheckbox"
-					checked={sortByEpisodes}
-					onChange={(e) => setSortByEpisodes(e.target.checked)}
-					disabled={sortByAlphabetical || sortByScore || sortByMalId}
-				/>
-				<label htmlFor="episodesCheckbox">Sort by episodes</label>
-				<div>
+				<div className="checkboxBox">
+					<input
+						type="checkbox"
+						id="episodesCheckbox"
+						checked={sortByEpisodes}
+						onChange={(e) => setSortByEpisodes(e.target.checked)}
+						disabled={sortByAlphabetical || sortByScore || sortByMalId}
+					/>
+					<label htmlFor="episodesCheckbox">Sort by episodes</label>
 					<label>
 						<input
 							type="radio"
@@ -221,15 +221,15 @@ const DataHome = ({ search, genre, page, onPageChange }) => {
 						Desc
 					</label>
 				</div>
-				<input
-					type="checkbox"
-					id="malIdCheckbox"
-					checked={sortByMalId}
-					onChange={(e) => setSortByMalId(e.target.checked)}
-					disabled={sortByAlphabetical || sortByScore || sortByEpisodes}
-				/>
-				<label htmlFor="malIdCheckbox">Sort by MyAnimeList ID</label>
-				<div>
+				<div className="checkboxBox">
+					<input
+						type="checkbox"
+						id="malIdCheckbox"
+						checked={sortByMalId}
+						onChange={(e) => setSortByMalId(e.target.checked)}
+						disabled={sortByAlphabetical || sortByScore || sortByEpisodes}
+					/>
+					<label htmlFor="malIdCheckbox">Sort by MyAnimeList ID</label>
 					<label>
 						<input
 							type="radio"
