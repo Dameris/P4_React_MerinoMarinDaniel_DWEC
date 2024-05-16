@@ -13,11 +13,13 @@ const DataHome = ({ search, genre, page, onPageChange }) => {
 	const [sortBy, setSortBy] = useState("")
 	const [order, setOrder] = useState("asc")
 	const [isVisible, setIsVisible] = useState(false)
+	const [currentPage, setCurrentPage] = useState(page)
+	const [pageRange, setPageRange] = useState(5)
 
 	useEffect(() => {
 		const fetchAnimeData = async () => {
 			try {
-				let apiUrl = `https://api.jikan.moe/v4/anime?q=${search}&sfw&page=${page}`
+				let apiUrl = `https://api.jikan.moe/v4/anime?q=${search}&sfw&page=${currentPage}`
 
 				if (sortBy) {
 					apiUrl += `&order_by=${sortBy}&sort=${order}`
@@ -39,7 +41,7 @@ const DataHome = ({ search, genre, page, onPageChange }) => {
 		// Retrasar la llamada para evitar la sobrecarga del servidor
 		const timeoutId = setTimeout(fetchAnimeData, 1000)
 		return () => clearTimeout(timeoutId)
-	}, [search, genre, page, sortBy, order])
+	}, [search, genre, currentPage, sortBy, order])
 
 	// Función para filtrar resultados únicos por mal_id
 	const filterUniqueByMalId = (data) => {
@@ -92,6 +94,24 @@ const DataHome = ({ search, genre, page, onPageChange }) => {
 		(anime) => !genre || anime.genres.some((animeGenre) => genre === animeGenre.name)
 	)
 
+	// Generar números de página
+	const pageNumbers = []
+	for (let i = 1; i <= totalPages; i++) {
+		pageNumbers.push(i)
+	}
+
+	// Manejar el cambio de página
+	const handlePageChange = (pageNumber) => {
+		setCurrentPage(pageNumber)
+		onPageChange(pageNumber)
+		scrollToTop()
+	}
+
+	// Determinar los números de página a mostrar en el rango actual
+	const startIndex = Math.max(0, currentPage - Math.floor(pageRange / 2))
+	const endIndex = Math.min(totalPages - 1, startIndex + pageRange - 1)
+	const displayedPageNumbers = pageNumbers.slice(startIndex, endIndex + 1)
+
 	return (
 		<div className="text-center">
 			<div className="filtersBox">
@@ -121,59 +141,63 @@ const DataHome = ({ search, genre, page, onPageChange }) => {
 					</div>
 				)}
 			</div>
-			<ul className="animeList">
-				{filteredAnimeResults.map((anime) => (
-					<Card
-						key={anime.mal_id}
-						className="animeCard"
-					>
-						<Card.Img
-							variant="top"
-							src={anime.images?.jpg?.image_url}
-							className="animeImg"
-						/>
-						<Card.Body></Card.Body>
-						<Card.Footer className="cardName">
-							{logged && (
-								<button
-									className="me-2"
-									onClick={() => toggleFavorite(anime.mal_id)}
+			<div className="homeBox">
+				<ul className="animeList">
+					{filteredAnimeResults.map((anime) => (
+						<Card
+							key={anime.mal_id}
+							className="animeCard"
+						>
+							<Card.Img
+								variant="top"
+								src={anime.images?.jpg?.image_url}
+								className="animeImg"
+							/>
+							<Card.Body></Card.Body>
+							<Card.Footer className="cardName">
+								{logged && (
+									<button
+										className="me-2"
+										onClick={() => toggleFavorite(anime.mal_id)}
+									>
+										{user && user.favorites && user.favorites.includes(anime.mal_id)
+											? "Remove"
+											: "Add"}
+									</button>
+								)}
+								<Link
+									to={`/animeDetails/${anime.mal_id}`}
+									target="_blank"
 								>
-									{user && user.favorites && user.favorites.includes(anime.mal_id)
-										? "Remove"
-										: "Add"}
-								</button>
-							)}
-							<Link
-								to={`/animeDetails/${anime.mal_id}`}
-								target="_blank"
-							>
-								{anime.title}
-							</Link>
-						</Card.Footer>
-					</Card>
-				))}
-			</ul>
-			<div className="pagination">
-				<button
-					onClick={() => {
-						onPageChange(page - 1)
-						scrollToTop()
-					}}
-					disabled={page === 1}
-				>
-					Previous Page
-				</button>
-				<span>{page}</span>
-				<button
-					onClick={() => {
-						onPageChange(page + 1)
-						scrollToTop()
-					}}
-					disabled={page === totalPages}
-				>
-					Next Page
-				</button>
+									{anime.title}
+								</Link>
+							</Card.Footer>
+						</Card>
+					))}
+				</ul>
+				<div className="pagination">
+					<button
+						onClick={() => handlePageChange(currentPage - 1)}
+						disabled={currentPage === 1}
+					>
+						Previous Page
+					</button>
+					{displayedPageNumbers.map((number) => (
+						<button
+							key={number}
+							onClick={() => handlePageChange(number)}
+							className={number === currentPage ? "active" : ""}
+						>
+							{number}
+						</button>
+					))}
+					<button
+						onClick={() => handlePageChange(currentPage + 1)}
+						disabled={currentPage === totalPages}
+					>
+						Next Page
+					</button>
+				</div>
 			</div>
 			{isVisible && (
 				<Box className="boxScrollTop">

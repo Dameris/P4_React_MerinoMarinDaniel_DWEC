@@ -291,16 +291,6 @@ textarea {
 	justify-content: center;
 }
 
-.pagination {
-	width: 100%;
-	position: absolute;
-	bottom: 10.9vh;
-	display: flex;
-	align-items: center;
-	justify-content: space-between;
-	font-size: large;
-}
-
 .search,
 .submitSearch {
 	padding: 10px;
@@ -389,6 +379,20 @@ textarea {
 
 .checkboxBox :disabled {
 	cursor: not-allowed;
+}
+
+.homeBox {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.pagination {
+	justify-content: space-around;
+	position: absolute;
+	width: 50%;
+	bottom: 10.9vh;
+	font-size: large;
 }
 
 .boxScrollTop {
