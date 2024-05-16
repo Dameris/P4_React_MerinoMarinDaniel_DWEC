@@ -392,13 +392,24 @@ textarea {
 	position: absolute;
 	width: 50%;
 	bottom: 10.9vh;
-	font-size: large;
+	font-size: medium;
 }
 
 .boxScrollTop {
 	position: fixed;
 	bottom: 20px;
 	right: 20px;
+}
+
+.activePageNumber {
+	opacity: 0.5;
+}
+
+.activePageNumber,
+.pageNumber {
+	padding: 2px;
+	padding-left: 5px;
+	padding-right: 5px;
 }
 
 /* Anime Details */
@@ -469,8 +480,8 @@ textarea {
 }
 
 .sortBy__Select:focus {
-	border-color: #4CAF50;
-	box-shadow: 0 0 4px #4CAF50;
+	border-color: #4caf50;
+	box-shadow: 0 0 4px #4caf50;
 }
 
 /* User Profile */

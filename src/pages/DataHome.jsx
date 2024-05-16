@@ -182,15 +182,27 @@ const DataHome = ({ search, genre, page, onPageChange }) => {
 					>
 						Previous Page
 					</button>
+					<button
+						onClick={() => handlePageChange(1)}
+						className={1 === currentPage ? "activePageNumber" : "pageNumber"}
+					>
+						First
+					</button>
 					{displayedPageNumbers.map((number) => (
 						<button
 							key={number}
 							onClick={() => handlePageChange(number)}
-							className={number === currentPage ? "active" : ""}
+							className={number === currentPage ? "activePageNumber" : "pageNumber"}
 						>
 							{number}
 						</button>
 					))}
+					<button
+						onClick={() => handlePageChange(totalPages)}
+						className={totalPages === currentPage ? "activePageNumber" : "pageNumber"}
+					>
+						Last
+					</button>
 					<button
 						onClick={() => handlePageChange(currentPage + 1)}
 						disabled={currentPage === totalPages}
