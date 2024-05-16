@@ -4,11 +4,11 @@ import Header from "../shared/Header"
 import Footer from "../shared/Footer"
 
 export default function LayoutPublic() {
-    return (
-        <div>
-            <Header></Header>
-            <Outlet></Outlet>
-            <Footer></Footer>
-        </div>
-    )
+	return (
+		<div>
+			<Header />
+			<Outlet />
+			<Footer />
+		</div>
+	)
 }

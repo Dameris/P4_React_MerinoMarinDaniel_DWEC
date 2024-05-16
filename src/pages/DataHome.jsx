@@ -277,7 +277,7 @@ const DataHome = ({ search, genre, page, onPageChange }) => {
 										: "Add"}
 								</button>
 							)}
-							<Link to={`/animeDetails/${anime.mal_id}`}>{anime.title}</Link>
+							<Link to={`/animeDetails/${anime.mal_id}`} target="_blank">{anime.title}</Link>
 						</Card.Footer>
 					</Card>
 				))}
