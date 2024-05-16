@@ -10,14 +10,8 @@ const DataHome = ({ search, genre, page, onPageChange }) => {
 	const { user, updateFavorites, logged } = useUserContext()
 	const [animeResults, setAnimeResults] = useState([])
 	const [totalPages, setTotalPages] = useState(0)
-	const [sortByAlphabetical, setSortByAlphabetical] = useState(false)
-	const [alphabeticalOrder, setAlphabeticalOrder] = useState("asc")
-	const [sortByScore, setSortByScore] = useState(false)
-	const [scoreOrder, setScoreOrder] = useState("desc")
-	const [sortByEpisodes, setSortByEpisodes] = useState(false)
-	const [episodesOrder, setEpisodesOrder] = useState("desc")
-	const [sortByMalId, setSortByMalId] = useState(true) // Predeterminado activo
-	const [malIdOrder, setMalIdOrder] = useState("asc") // Predeterminado ascendente
+	const [sortBy, setSortBy] = useState("")
+	const [order, setOrder] = useState("asc")
 	const [isVisible, setIsVisible] = useState(false)
 
 	useEffect(() => {
@@ -25,20 +19,8 @@ const DataHome = ({ search, genre, page, onPageChange }) => {
 			try {
 				let apiUrl = `https://api.jikan.moe/v4/anime?q=${search}&sfw&page=${page}`
 
-				if (sortByAlphabetical) {
-					apiUrl += `&order_by=title&sort=${alphabeticalOrder}`
-				}
-
-				if (sortByScore) {
-					apiUrl += `&order_by=score&sort=${scoreOrder}`
-				}
-
-				if (sortByEpisodes) {
-					apiUrl += `&order_by=episodes&sort=${episodesOrder}`
-				}
-
-				if (sortByMalId) {
-					apiUrl += `&order_by=mal_id&sort=${malIdOrder}`
+				if (sortBy) {
+					apiUrl += `&order_by=${sortBy}&sort=${order}`
 				}
 
 				const response = await fetch(apiUrl)
@@ -57,19 +39,7 @@ const DataHome = ({ search, genre, page, onPageChange }) => {
 		// Retrasar la llamada para evitar la sobrecarga del servidor
 		const timeoutId = setTimeout(fetchAnimeData, 1000)
 		return () => clearTimeout(timeoutId)
-	}, [
-		search,
-		genre,
-		page,
-		sortByAlphabetical,
-		alphabeticalOrder,
-		sortByScore,
-		scoreOrder,
-		sortByEpisodes,
-		episodesOrder,
-		sortByMalId,
-		malIdOrder,
-	])
+	}, [search, genre, page, sortBy, order])
 
 	// Función para filtrar resultados únicos por mal_id
 	const filterUniqueByMalId = (data) => {
@@ -125,134 +95,31 @@ const DataHome = ({ search, genre, page, onPageChange }) => {
 	return (
 		<div className="text-center">
 			<div className="filtersBox">
-				<div className="checkboxBox">
-					<input
-						type="checkbox"
-						id="orderCheckbox"
-						checked={sortByAlphabetical}
-						onChange={(e) => setSortByAlphabetical(e.target.checked)}
-						disabled={sortByScore || sortByEpisodes || sortByMalId}
-					/>
-					<label htmlFor="orderCheckbox">Sort by alphabetical order</label>
-					<label>
-						<input
-							type="radio"
-							name="alphabeticalOrder"
-							value="asc"
-							checked={sortByAlphabetical && alphabeticalOrder === "asc"}
-							onChange={() => setAlphabeticalOrder("asc")}
-							disabled={!sortByAlphabetical}
-						/>
-						Asc
-					</label>
-					<label>
-						<input
-							type="radio"
-							name="alphabeticalOrder"
-							value="desc"
-							checked={sortByAlphabetical && alphabeticalOrder === "desc"}
-							onChange={() => setAlphabeticalOrder("desc")}
-							disabled={!sortByAlphabetical}
-						/>
-						Desc
-					</label>
+				<div className="dropdown">
+					<select
+						id="sortBy"
+						className="sortBy__Select"
+						value={sortBy}
+						onChange={(e) => setSortBy(e.target.value)}
+					>
+						<option value="">Sort by...</option>
+						<option value="title">Title</option>
+						<option value="score">Score</option>
+						<option value="episodes">Episodes</option>
+						<option value="mal_id">MyAnimeList ID</option>
+					</select>
 				</div>
-				<div className="checkboxBox">
-					<input
-						type="checkbox"
-						id="scoreCheckbox"
-						checked={sortByScore}
-						onChange={(e) => setSortByScore(e.target.checked)}
-						disabled={sortByAlphabetical || sortByEpisodes || sortByMalId}
-					/>
-					<label htmlFor="scoreCheckbox">Sort by score</label>
-					<label>
+				{sortBy && (
+					<div className="checkboxBox">
 						<input
-							type="radio"
-							name="scoreOrder"
-							value="asc"
-							checked={sortByScore && scoreOrder === "asc"}
-							onChange={() => setScoreOrder("asc")}
-							disabled={!sortByScore}
+							type="checkbox"
+							id="orderCheckbox"
+							checked={order === "desc"}
+							onChange={(e) => setOrder(e.target.checked ? "desc" : "asc")}
 						/>
-						Asc
-					</label>
-					<label>
-						<input
-							type="radio"
-							name="scoreOrder"
-							value="desc"
-							checked={sortByScore && scoreOrder === "desc"}
-							onChange={() => setScoreOrder("desc")}
-							disabled={!sortByScore}
-						/>
-						Desc
-					</label>
-				</div>
-				<div className="checkboxBox">
-					<input
-						type="checkbox"
-						id="episodesCheckbox"
-						checked={sortByEpisodes}
-						onChange={(e) => setSortByEpisodes(e.target.checked)}
-						disabled={sortByAlphabetical || sortByScore || sortByMalId}
-					/>
-					<label htmlFor="episodesCheckbox">Sort by episodes</label>
-					<label>
-						<input
-							type="radio"
-							name="episodesOrder"
-							value="asc"
-							checked={sortByEpisodes && episodesOrder === "asc"}
-							onChange={() => setEpisodesOrder("asc")}
-							disabled={!sortByEpisodes}
-						/>
-						Asc
-					</label>
-					<label>
-						<input
-							type="radio"
-							name="episodesOrder"
-							value="desc"
-							checked={sortByEpisodes && episodesOrder === "desc"}
-							onChange={() => setEpisodesOrder("desc")}
-							disabled={!sortByEpisodes}
-						/>
-						Desc
-					</label>
-				</div>
-				<div className="checkboxBox">
-					<input
-						type="checkbox"
-						id="malIdCheckbox"
-						checked={sortByMalId}
-						onChange={(e) => setSortByMalId(e.target.checked)}
-						disabled={sortByAlphabetical || sortByScore || sortByEpisodes}
-					/>
-					<label htmlFor="malIdCheckbox">Sort by MyAnimeList ID</label>
-					<label>
-						<input
-							type="radio"
-							name="malIdOrder"
-							value="asc"
-							checked={sortByMalId && malIdOrder === "asc"}
-							onChange={() => setMalIdOrder("asc")}
-							disabled={!sortByMalId}
-						/>
-						Asc
-					</label>
-					<label>
-						<input
-							type="radio"
-							name="malIdOrder"
-							value="desc"
-							checked={sortByMalId && malIdOrder === "desc"}
-							onChange={() => setMalIdOrder("desc")}
-							disabled={!sortByMalId}
-						/>
-						Desc
-					</label>
-				</div>
+						<label htmlFor="orderCheckbox">Descending order</label>
+					</div>
+				)}
 			</div>
 			<ul className="animeList">
 				{filteredAnimeResults.map((anime) => (
@@ -277,7 +144,12 @@ const DataHome = ({ search, genre, page, onPageChange }) => {
 										: "Add"}
 								</button>
 							)}
-							<Link to={`/animeDetails/${anime.mal_id}`} target="_blank">{anime.title}</Link>
+							<Link
+								to={`/animeDetails/${anime.mal_id}`}
+								target="_blank"
+							>
+								{anime.title}
+							</Link>
 						</Card.Footer>
 					</Card>
 				))}

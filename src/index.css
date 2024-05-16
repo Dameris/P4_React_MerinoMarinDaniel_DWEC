@@ -451,6 +451,24 @@ textarea {
 	outline: none;
 }
 
+.sortBy__Select {
+	padding: 12px;
+	font-size: 16px;
+	border: 1px solid #ccc;
+	border-radius: 4px;
+	outline: none;
+	cursor: pointer;
+}
+
+.sortBy__Select:hover {
+	border-color: #888;
+}
+
+.sortBy__Select:focus {
+	border-color: #4CAF50;
+	box-shadow: 0 0 4px #4CAF50;
+}
+
 /* User Profile */
 .userProfile {
 	background-image: url("../src/assets/images/wallpaper2.jpg");
