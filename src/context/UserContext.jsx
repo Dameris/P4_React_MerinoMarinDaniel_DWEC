@@ -60,24 +60,28 @@ const UserProvider = ({ children }) => {
 
 	// Función para actualizar los favoritos del usuario
 	const updateFavorites = (newFavorites) => {
-		setUser((prevUser) => ({
-			...prevUser,
-			favorites: newFavorites,
-		}))
+		setUser((prevUser) => {
+			const updatedUser = {
+				...prevUser,
+				favorites: newFavorites,
+			}
 
-		const loggedInUser = localStorage.getItem("loggedUser")
-		if (loggedInUser && dbInitialized) {
-			const request = window.indexedDB.open("userData", 1)
-			request.onsuccess = (event) => {
-				const db = event.target.result
-				const transaction = db.transaction("users", "readwrite")
-				const objectStore = transaction.objectStore("users")
-				objectStore.put(user)
+			const loggedInUser = localStorage.getItem("loggedUser")
+			if (loggedInUser && dbInitialized) {
+				const request = window.indexedDB.open("userData", 1)
+				request.onsuccess = (event) => {
+					const db = event.target.result
+					const transaction = db.transaction("users", "readwrite")
+					const objectStore = transaction.objectStore("users")
+					objectStore.put(updatedUser)
+				}
+				request.onerror = (event) => {
+					console.error("Error opening IndexedDB:", event.target.error)
+				}
 			}
-			request.onerror = (event) => {
-				console.error("Error opening IndexedDB:", event.target.error)
-			}
-		}
+
+			return updatedUser
+		})
 	}
 
 	if (!dbInitialized) {
