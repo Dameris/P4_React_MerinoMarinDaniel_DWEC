@@ -52,7 +52,7 @@ const AnimeDetails = () => {
 						alt={animeResults.data.title}
 					/>
 				)}
-				{animeResults.data.synopsis}
+				<p>{animeResults.data.synopsis}</p>
 			</div>
 
 			<p className="detailsP">
