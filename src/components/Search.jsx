@@ -7,21 +7,21 @@ const Search = ({ onSearch }) => {
 	const [selectedGenre, setSelectedGenre] = useState("")
 	const [currentPage, setCurrentPage] = useState(1)
 
-	// Llamada a "API Jikan" para obtener los géneros
-	useEffect(() => {
-		const getGenres = async () => {
-			try {
-				const data = await fetch("https://api.jikan.moe/v4/genres/anime")
-				const result = await data.json()
-				const sortedGenres = result.data.sort((a, b) => a.name.localeCompare(b.name))
-				setGenres(sortedGenres)
-			} catch (error) {
-				console.error("Error fetching anime genres from Jikan API", error)
-			}
-		}
+	// // Llamada a "API Jikan" para obtener los géneros
+	// useEffect(() => {
+	// 	const getGenres = async () => {
+	// 		try {
+	// 			const data = await fetch("https://api.jikan.moe/v4/genres/anime")
+	// 			const result = await data.json()
+	// 			const sortedGenres = result.data.sort((a, b) => a.name.localeCompare(b.name))
+	// 			setGenres(sortedGenres)
+	// 		} catch (error) {
+	// 			console.error("Error fetching anime genres from Jikan API", error)
+	// 		}
+	// 	}
 
-		getGenres()
-	}, [])
+	// 	getGenres()
+	// }, [])
 
 	// Función que maneja los cambios de página
 	const handlePageChange = (newPage) => {
@@ -34,10 +34,10 @@ const Search = ({ onSearch }) => {
 		onSearch(searchInput, selectedGenre, currentPage)
 	}
 
-	const handleGenreChange = (event) => {
-		const selectedValue = event.target.value
-		setSelectedGenre(selectedValue === "all" ? "" : selectedValue)
-	}
+	// const handleGenreChange = (event) => {
+	// 	const selectedValue = event.target.value
+	// 	setSelectedGenre(selectedValue === "all" ? "" : selectedValue)
+	// }
 
 	return (
 		<div>
@@ -53,7 +53,7 @@ const Search = ({ onSearch }) => {
 					value={searchInput}
 					onChange={(event) => setSearchInput(event.target.value)}
 				/>
-				<select
+				{/* <select
 					className="search"
 					value={selectedGenre}
 					onChange={handleGenreChange}
@@ -67,7 +67,7 @@ const Search = ({ onSearch }) => {
 							{genre.name}
 						</option>
 					))}
-				</select>
+				</select> */}
 				<button
 					className="submitSearch"
 					type="submit"

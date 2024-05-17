@@ -31,6 +31,11 @@ const DataHome = ({ search, genre, page, onPageChange }) => {
 				// Filtrar los resultados para evitar duplicados por mal_id
 				const uniqueAnimeResults = filterUniqueByMalId(data)
 
+				// // Filtrar todos los resultados según el género
+				// const filteredResultsByGenre = uniqueAnimeResults.filter(
+				// 	(anime) => !genre || anime.genres.some((animeGenre) => genre === animeGenre.name)
+				// )
+
 				setAnimeResults(uniqueAnimeResults)
 				setTotalPages(pagination.last_visible_page)
 			} catch (error) {
@@ -89,10 +94,10 @@ const DataHome = ({ search, genre, page, onPageChange }) => {
 		updateFavorites(updatedFavorites)
 	}
 
-	// Filtrar los resultados del anime según el género
-	const filteredAnimeResults = animeResults.filter(
-		(anime) => !genre || anime.genres.some((animeGenre) => genre === animeGenre.name)
-	)
+	// // Filtrar los resultados del anime según el género
+	// const filteredAnimeResults = animeResults.filter(
+	// 	(anime) => !genre || anime.genres.some((animeGenre) => genre === animeGenre.name)
+	// )
 
 	// Generar números de página
 	const pageNumbers = []
@@ -143,7 +148,7 @@ const DataHome = ({ search, genre, page, onPageChange }) => {
 			</div>
 			<div className="homeBox">
 				<ul className="animeList">
-					{filteredAnimeResults.map((anime) => (
+					{animeResults.map((anime) => (
 						<Card
 							key={anime.mal_id}
 							className="animeCard"
