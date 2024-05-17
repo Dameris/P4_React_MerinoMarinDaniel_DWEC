@@ -19,7 +19,7 @@ const DataHome = ({ search, genre, page, onPageChange }) => {
 	useEffect(() => {
 		const fetchAnimeData = async () => {
 			try {
-				let apiUrl = `https://api.jikan.moe/v4/anime?q=${search}&sfw&page=${currentPage}`
+				let apiUrl = `https://api.jikan.moe/v4/anime?q=${search}&sfw=true&page=${currentPage}`
 
 				if (sortBy) {
 					apiUrl += `&order_by=${sortBy}&sort=${order}`
@@ -79,6 +79,12 @@ const DataHome = ({ search, genre, page, onPageChange }) => {
 		}
 	}, [])
 
+	// Función para que al cambiar de filtro siempre se vaya a la página 1
+	useEffect(() => {
+		setCurrentPage(1)
+		onPageChange(1)
+	}, [sortBy, order, genre])
+
 	// Función para agregar o eliminar un anime de los favoritos
 	const toggleFavorite = (animeId) => {
 		if (!user) {
@@ -131,7 +137,8 @@ const DataHome = ({ search, genre, page, onPageChange }) => {
 						<option value="title">Title</option>
 						<option value="score">Score</option>
 						<option value="episodes">Episodes</option>
-						<option value="mal_id">MyAnimeList ID</option>
+						<option value="start_date">Start date</option>
+						<option value="end_date">End date</option>
 					</select>
 				</div>
 				{sortBy && (
