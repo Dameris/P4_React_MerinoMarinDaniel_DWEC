@@ -304,6 +304,10 @@ textarea {
 	width: 16vw;
 }
 
+.submitSearch::placeholder {
+	color: #fff;
+}
+
 .search:focus,
 .submitSearch:focus {
 	outline: none;

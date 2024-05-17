@@ -3,8 +3,6 @@ import DataHome from "../pages/DataHome"
 
 const Search = ({ onSearch }) => {
 	const [searchInput, setSearchInput] = useState("")
-	const [genres, setGenres] = useState([])
-	const [selectedGenre, setSelectedGenre] = useState("")
 	const [currentPage, setCurrentPage] = useState(1)
 
 	// // Llamada a "API Jikan" para obtener los géneros
@@ -31,7 +29,7 @@ const Search = ({ onSearch }) => {
 	// Función que maneja el envío del formulario de búsqueda
 	const handleSubmit = (event) => {
 		event.preventDefault()
-		onSearch(searchInput, selectedGenre, currentPage)
+		onSearch(searchInput, currentPage)
 	}
 
 	// const handleGenreChange = (event) => {
@@ -47,7 +45,7 @@ const Search = ({ onSearch }) => {
 				className="searchForm"
 			>
 				<input
-					className="search"
+					className="submitSearch"
 					type="text"
 					placeholder="Search anime..."
 					value={searchInput}
@@ -68,16 +66,15 @@ const Search = ({ onSearch }) => {
 						</option>
 					))}
 				</select> */}
-				<button
+				{/* <button
 					className="submitSearch"
 					type="submit"
 				>
 					Search
-				</button>
+				</button> */}
 			</form>
 			<DataHome
 				search={searchInput}
-				genre={selectedGenre}
 				page={currentPage}
 				onPageChange={handlePageChange}
 			/>

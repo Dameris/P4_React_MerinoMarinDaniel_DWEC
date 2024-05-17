@@ -6,7 +6,7 @@ import Button from "@mui/material/Button"
 import Box from "@mui/material/Box"
 import ArrowUpwardIcon from "@mui/icons-material/ArrowUpward"
 
-const DataHome = ({ search, genre, page, onPageChange }) => {
+const DataHome = ({ search, page, onPageChange }) => {
 	const { user, updateFavorites, logged } = useUserContext()
 	const [animeResults, setAnimeResults] = useState([])
 	const [totalPages, setTotalPages] = useState(0)
@@ -46,7 +46,7 @@ const DataHome = ({ search, genre, page, onPageChange }) => {
 		// Retrasar la llamada para evitar la sobrecarga del servidor
 		const timeoutId = setTimeout(fetchAnimeData, 1000)
 		return () => clearTimeout(timeoutId)
-	}, [search, genre, currentPage, sortBy, order])
+	}, [search, currentPage, sortBy, order])
 
 	// Función para filtrar resultados únicos por mal_id
 	const filterUniqueByMalId = (data) => {
@@ -83,7 +83,7 @@ const DataHome = ({ search, genre, page, onPageChange }) => {
 	useEffect(() => {
 		setCurrentPage(1)
 		onPageChange(1)
-	}, [sortBy, order, genre])
+	}, [sortBy, order])
 
 	// Función para agregar o eliminar un anime de los favoritos
 	const toggleFavorite = (animeId) => {

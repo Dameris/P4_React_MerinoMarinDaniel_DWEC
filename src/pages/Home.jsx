@@ -4,12 +4,10 @@ import DataHome from "./DataHome"
 
 const Home = () => {
 	const [searchTerm, setSearchTerm] = useState("")
-	const [selectedGenre, setSelectedGenre] = useState("")
 
 	// Función para manejar la búsqueda
-	const handleSearch = (term, genre) => {
+	const handleSearch = (term) => {
 		setSearchTerm(term)
-		setSelectedGenre(genre)
 	}
 
 	return (
@@ -19,7 +17,7 @@ const Home = () => {
 			{searchTerm && (
 				<DataHome
 					search={searchTerm}
-					genre={selectedGenre}
+					onPageChange={handleSearch}
 				/>
 			)}
 		</div>
